@@ -29,12 +29,66 @@ class Account extends StatelessWidget {
           ),
       ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        child: ListView(
+          scrollDirection: Axis.horizontal,
           children: [
-            // Your content goes here
-            Text('This is the Account Screen'),
+            Container(
+              color: Colors.grey.withOpacity(0.5),
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'lib/image/jisoo.jpg',
+                    fit: BoxFit.fill,
+                    width: 400,
+                    height: 400,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.grey.withOpacity(0.5),
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'lib/image/jisoo.jpg',
+                    fit: BoxFit.fill,
+                    width: 400,
+                    height: 400,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.grey.withOpacity(0.5),
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'lib/image/jisoo.jpg',
+                    fit: BoxFit.fill,
+                    width: 400,
+                    height: 400,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.grey.withOpacity(0.5),
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'lib/image/jisoo.jpg',
+                    fit: BoxFit.fill,
+                    width: 400,
+                    height: 400,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
