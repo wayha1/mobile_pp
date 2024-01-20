@@ -84,23 +84,18 @@ class SignIn extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 60, bottom: 40, right: 10),
+                    padding: const EdgeInsets.only(top: 60, bottom: 40, right: 20),
                     child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()),
-                        );
-                      },
+                      onPressed: () {},
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.green.shade600,
+                        backgroundColor: Colors.green.shade700, // Adjust color as needed
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         fixedSize: Size(150, 50),
                       ),
                       child: Text(
-                        'SIGN UP',
+                        'SIGN IN',
                         style: GoogleFonts.slabo27px(
                           fontSize: 20,
                           color: Colors.white,
@@ -109,18 +104,23 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 60, bottom: 40, left: 10),
+                    padding: const EdgeInsets.only(top: 60, bottom: 40, left: 20),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                        );
+                      },
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.blue.shade600, // Adjust color as needed
+                        backgroundColor: Colors.red.shade900,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         fixedSize: Size(150, 50),
                       ),
                       child: Text(
-                        'SIGN IN',
+                        'SIGN UP',
                         style: GoogleFonts.slabo27px(
                           fontSize: 20,
                           color: Colors.white,
@@ -159,25 +159,80 @@ class SignIn extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 120),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'lib/image/fa.png',
-                      width: 140,
-                      height: 140,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 90, top: 20),
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue.shade700,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      fixedSize: Size(400, 60),
                     ),
-                    SizedBox(width: 10), // Add spacing between the images
-                    Image.asset(
-                      'lib/image/go.png',
-                      width: 100,
-                      height: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'lib/image/fa.png',
+                          width: 70,
+                          height: 70,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Login with Facebook',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: TextButton(
+                      onPressed: () {
+                        // Add your logic for Google login here
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          side: BorderSide(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                        fixedSize: Size(400, 60),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'lib/image/go.png',
+                            width: 50,
+                            height: 50,
+                          ),
+                          SizedBox(width: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              'Login with Google',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(

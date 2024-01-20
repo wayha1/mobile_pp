@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_practicum/component/my_button_Bar.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -8,7 +9,12 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade200,
+        backgroundColor: Colors.green.shade600,
+        title: Text('Create eLibrary account',
+        style: GoogleFonts.lora(
+          color: Colors.white,
+          fontSize: 20
+        ),),
       ),
       body: ListView(
         padding: EdgeInsets.only(top: 50, left: 15, right: 15),
@@ -19,18 +25,32 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
-                  'Email Address *', // Your label text
+                  'NickName *', // Your label text
                   style: GoogleFonts.dancingScript(
-                    fontSize: 20,
+                      fontSize: 15,
+                      color: Colors.green.shade500
                   ),
                 ),
               ),
               SizedBox(height: 8), // Add spacing between label and TextField
               TextField(
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+                  hintText: 'Enter Nickname',
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, top: 50),
+                child: Text(
+                  'Email Address *', // Your label text
+                  style: GoogleFonts.dancingScript(
+                    fontSize: 15,
+                      color: Colors.green.shade500
                   ),
+                ),
+              ),
+              SizedBox(height: 8), // Add spacing between label and TextField
+              TextField(
+                decoration: InputDecoration(
                   hintText: 'Enter Email Address',
                 ),
               ),
@@ -39,16 +59,14 @@ class SignUp extends StatelessWidget {
                 child: Text(
                   'PASSWORD *', // Your label text
                   style: GoogleFonts.dancingScript(
-                    fontSize: 20,
+                    fontSize: 15,
+                      color: Colors.green.shade500
                   ),
                 ),
               ),
               SizedBox(height: 8), // Add spacing between label and TextField
               TextField(
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
-                  ),
                   hintText: 'Enter Password',
                 ),
               ),
@@ -59,16 +77,14 @@ class SignUp extends StatelessWidget {
             child: Text(
               'Comfirm Password*', // Your label text
               style: GoogleFonts.dancingScript(
-                fontSize: 20,
+                fontSize: 15,
+                color: Colors.green.shade500
               ),
             ),
           ),
           SizedBox(height: 8), // Add spacing between label and TextField
           TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
-              ),
               hintText: 'Comfirm Password',
             ),
           ),
@@ -107,12 +123,15 @@ class SignUp extends StatelessWidget {
               padding: const EdgeInsets.only(top: 40, bottom: 50),
               child: TextButton(
                 onPressed: () {
-                  // Add your onPressed logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyButtomNavBar()),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.green.shade600, // Set the background color of the button
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+                    borderRadius: BorderRadius.circular(30.0), // Adjust the radius as needed
                   ),
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30), // Adjust padding as needed
                 ),
