@@ -174,6 +174,7 @@ class SignIn extends StatelessWidget {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
                         Image.asset(
                           'lib/image/fa.png',

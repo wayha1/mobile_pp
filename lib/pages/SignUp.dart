@@ -86,6 +86,7 @@ class SignUp extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               hintText: 'Comfirm Password',
+
             ),
           ),
 
