@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            MyButtomNavBar(),
+            // MyButtomNavBar(),
             SignIn(),
           ],
         ),

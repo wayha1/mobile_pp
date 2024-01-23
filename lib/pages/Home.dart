@@ -1,24 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   const Account({Key? key});
+
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+  String name = '';
+
+  Future<void> fetchData() async {
+    final response = await http.get(Uri.parse('http://127.0.0.1:5000'));
+
+    final decoded = json.decode(response.body) as List<dynamic>;
+
+    // Assuming there is only one item in the list
+    if (decoded.isNotEmpty) {
+      setState(() {
+        name = decoded[0]['name'];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
-
         leading: Center(
-
-          // Adjust the margin as needed
           child: Image.asset(
             'lib/image/logo.png',
             width: 50,
             height: 50,
             color: Colors.black,
-
           ),
         ),
         title: Text(
@@ -27,71 +51,21 @@ class Account extends StatelessWidget {
             fontSize: 25,
             color: Colors.black54,
           ),
-      ),
+        ),
       ),
       body: Container(
-        child: ListView(
-          scrollDirection: Axis.horizontal,
+        child: Column(
           children: [
-            Container(
-              color: Colors.grey.withOpacity(0.5),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'lib/image/jisoo.jpg',
-                    fit: BoxFit.fill,
-                    width: 400,
-                    height: 400,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.grey.withOpacity(0.5),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'lib/image/jisoo.jpg',
-                    fit: BoxFit.fill,
-                    width: 400,
-                    height: 400,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.grey.withOpacity(0.5),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'lib/image/jisoo.jpg',
-                    fit: BoxFit.fill,
-                    width: 400,
-                    height: 400,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.grey.withOpacity(0.5),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'lib/image/jisoo.jpg',
-                    fit: BoxFit.fill,
-                    width: 400,
-                    height: 400,
-                  ),
-                ],
-              ),
-            ),
+            Text('Name: $name'),
           ],
         ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Account(),
+  ));
 }

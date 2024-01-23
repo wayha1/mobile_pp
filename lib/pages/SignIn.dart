@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_practicum/component/my_button_Bar.dart';
 import 'package:project_practicum/pages/SignUp.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+
+  final _username = TextEditingController();
+  final _password = TextEditingController();
+  bool _validateUsername = false;
+  bool _validatePassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +68,12 @@ class SignIn extends StatelessWidget {
                     border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.email),
                     labelText: "Email Address",
+                    errorText: _validateUsername?'email cannot be null':null,
                     labelStyle: GoogleFonts.bitter(
                       fontSize: 15
                     ),
                   ),
+                  controller: _username,
                 ),
               ),
             ),
@@ -71,10 +85,12 @@ class SignIn extends StatelessWidget {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.password),
                     labelText: "Password",
+                    errorText: _validatePassword?'password cannot be null':null,
                     labelStyle: GoogleFonts.bitter(
                         fontSize: 15
                     ),
                   ),
+                  controller: _password,
                 ),
               ),
             ),
@@ -86,7 +102,15 @@ class SignIn extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 60, bottom: 40, right: 20),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _username.text.isEmpty?_validateUsername = true:_validateUsername = false;
+                          _password.text.isEmpty?_validatePassword = true:_validatePassword = false;
+                          if(_username.text == 'root' && _password.text == 'root'){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyButtomNavBar()));
+                          }
+                        });
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.green.shade700, // Adjust color as needed
                         shape: RoundedRectangleBorder(
@@ -160,38 +184,9 @@ class SignIn extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(bottom: 90, top: 20),
+              padding: const EdgeInsets.only(bottom: 130, top: 20),
               child: Column(
                 children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue.shade700,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      fixedSize: Size(400, 60),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      children: [
-                        Image.asset(
-                          'lib/image/fa.png',
-                          width: 70,
-                          height: 70,
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Login with Facebook',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
