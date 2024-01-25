@@ -20,92 +20,123 @@ class Contactus extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(1.0),
-        child: Column(
-          children: [
-            // First set of data
-            Container(
-              color: Colors.grey.shade100,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Left side - Profile Avatar
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage('lib/image/lo.png'), // Replace with your image path
-                  ),
-                  SizedBox(width: 10),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                // First set of data
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
 
-                  // Right side - Display Name Information
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 20, top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Display Name:',
-                            style: GoogleFonts.asapCondensed(
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Anonymous',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                    children: [
+                      // Left side - Profile Avatar
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: AssetImage('lib/image/lo.png'), // Replace with your image path
                       ),
-                    ),
+                      SizedBox(width: 10),
+
+                      // Right side - Display Name Information
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 20, top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Display Name:',
+                                style: GoogleFonts.asapCondensed(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Anonymous',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
 
-            ),
-
-            // White shadow box
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.grey.shade500,
-                  width: 0.2,
                 ),
 
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Left side - Profile Avatar (replace with your data)
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 40, top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Display Name:',
-                            style: GoogleFonts.asapCondensed(
-                              fontSize: 12,
-                              color: Colors.black,
+                // White shadow box
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      border: Border.all(
+                        color: Colors.blue,
+                        width: 1,
+                      ),
+
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Left side - Profile Avatar (replace with your data)
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only( top: 20),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10, left: 30),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Display Name:',
+                                    style: GoogleFonts.asapCondensed(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                ],
+                              ),
                             ),
                           ),
-                          SizedBox(height: 8),
-
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
+                ),
 
-            // Repeat the pattern for additional data sets as needed
-          ],
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                          onPressed: () {
+                            // Add your logout logic here
+                          },
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 20
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

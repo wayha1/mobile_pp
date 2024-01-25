@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 class Account extends StatefulWidget {
   const Account({Key? key});
@@ -11,25 +11,26 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  String name = '';
-
-  Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:5000'));
-
-    final decoded = json.decode(response.body) as List<dynamic>;
-
-    // Assuming there is only one item in the list
-    if (decoded.isNotEmpty) {
-      setState(() {
-        name = decoded[0]['name'];
-      });
-    }
-  }
+  List<Map<String, dynamic>> informationProvider = [];
 
   @override
   void initState() {
     super.initState();
     fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final response = await http.get(Uri.parse('http://10.0.2.2:8080'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        informationProvider = List<Map<String, dynamic>>.from(
+          json.decode(response.body),
+        );
+      });
+    } else {
+      throw Exception('Failed to load data');
+    }
   }
 
   @override
@@ -47,25 +48,26 @@ class _AccountState extends State<Account> {
         ),
         title: Text(
           'eLibrary',
-          style: GoogleFonts.asapCondensed(
+          style: TextStyle(
             fontSize: 25,
             color: Colors.black54,
           ),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Text('Name: $name'),
-          ],
-        ),
+      body: Center(
+        child: informationProvider.isNotEmpty
+            ? ListView.builder(
+          itemCount: informationProvider.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(informationProvider[index]['name']),
+              // You can also display the image if needed.
+              // For example, Image.network(informationProvider[index]['image']),
+            );
+          },
+        )
+            : CircularProgressIndicator(),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: Account(),
-  ));
 }

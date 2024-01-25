@@ -36,7 +36,9 @@ class Carts extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text('This is the Carts Screen'),
+        child: SizedBox(
+
+        ),
       ),
     );
   }
