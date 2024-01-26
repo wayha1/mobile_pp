@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class Account extends StatefulWidget {
@@ -60,9 +59,15 @@ class _AccountState extends State<Account> {
           itemCount: informationProvider.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(informationProvider[index]['name']),
-              // You can also display the image if needed.
-              // For example, Image.network(informationProvider[index]['image']),
+              title: Text(informationProvider[index]['name'] ?? ''),
+              leading: SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.network(
+                  informationProvider[index]['images'] ?? '', // Use 'images' instead of 'image'
+                  fit: BoxFit.cover,
+                ),
+              ),
             );
           },
         )
