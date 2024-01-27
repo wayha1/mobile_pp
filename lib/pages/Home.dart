@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_practicum/pages/information.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key});
@@ -122,8 +123,14 @@ class _AccountState extends State<Account> {
               padding: const EdgeInsets.only(left: 10),
               child: TextButton(
                 onPressed: () {
-                  // Handle button press
-                  print('See all pressed!');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Information(
+                        imageUrls: informationProvider2.map<String>((item) => item['image'] ?? '').toList(),
+                      ),
+                    ),
+                  );
                 },
                 child: Row(
                   children: [
@@ -170,20 +177,26 @@ class _AccountState extends State<Account> {
             ),
           ),
 
-          //Comdy
+          //Comedy
           Container(
             alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(left: 10),
               child: TextButton(
                 onPressed: () {
-                  // Handle button press
-                  print('See all pressed!');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Information(
+                        imageUrls: informationProvider3.map<String>((item) => item['imagey'] ?? '').toList(),
+                      ),
+                    ),
+                  );
                 },
                 child: Row(
                   children: [
                     Text(
-                      'See all (Comdy Books)',
+                      'See all (Comedy Books)',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -200,28 +213,31 @@ class _AccountState extends State<Account> {
               ),
             ),
           ),
-          Container(
-            height: 320,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: informationProvider3.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        height: 300,
-                        child: Image.network(
-                          informationProvider3[index]['imagey'] ?? '',
-                          fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Container(
+              height: 320,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: informationProvider3.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          height: 300,
+                          child: Image.network(
+                            informationProvider3[index]['imagey'] ?? '',
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
