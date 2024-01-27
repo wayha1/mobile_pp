@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 class Account extends StatefulWidget {
@@ -10,7 +11,9 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  List<Map<String, dynamic>> informationProvider = [];
+  List<Map<String, dynamic>> informationProvider1 = [];
+  List<Map<String, dynamic>> informationProvider2 = [];
+  List<Map<String, dynamic>> informationProvider3 = [];
 
   @override
   void initState() {
@@ -19,16 +22,32 @@ class _AccountState extends State<Account> {
   }
 
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:8080'));
+    try {
+      final response1 = await http.get(Uri.parse('http://10.0.2.2:8080'));
+      final response2 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
+      final response3 = await http.get(Uri.parse('http://10.0.2.2:8080/api/comdy_information'));
 
-    if (response.statusCode == 200) {
-      setState(() {
-        informationProvider = List<Map<String, dynamic>>.from(
-          json.decode(response.body),
-        );
-      });
-    } else {
-      throw Exception('Failed to load data');
+      if (response1.statusCode == 200 && response2.statusCode == 200 && response3.statusCode == 200) {
+        setState(() {
+          informationProvider1 = List<Map<String, dynamic>>.from(
+            json.decode(response1.body),
+          );
+
+          informationProvider2 = List<Map<String, dynamic>>.from(
+            json.decode(response2.body),
+          );
+
+          informationProvider3 = List<Map<String, dynamic>>.from(
+            json.decode(response3.body),
+          );
+
+        });
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (error) {
+      print('Error: $error');
+      // Handle errors appropriately
     }
   }
 
@@ -53,25 +72,159 @@ class _AccountState extends State<Account> {
           ),
         ),
       ),
-      body: Center(
-        child: informationProvider.isNotEmpty
-            ? ListView.builder(
-          itemCount: informationProvider.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(informationProvider[index]['name'] ?? ''),
-              leading: SizedBox(
-                width: 50,
-                height: 50,
-                child: Image.network(
-                  informationProvider[index]['images'] ?? '', // Use 'images' instead of 'image'
-                  fit: BoxFit.cover,
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          Container(
+            height: 260,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: informationProvider1.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 400,
+                        height: 200,
+                        child: Image.network(
+                          informationProvider1[index]['images'] ?? '',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Column(
+                          children: [
+                            Text(
+                              informationProvider1[index]['name'] ?? '',
+                              style: GoogleFonts.playfairDisplay(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+
+          //Comic
+          Container(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: TextButton(
+                onPressed: () {
+                  // Handle button press
+                  print('See all pressed!');
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'See all (Comic Books)',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.blue,
+                      size: 17,
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
-        )
-            : CircularProgressIndicator(),
+            ),
+          ),
+          Container(
+            height: 320,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: informationProvider2.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        height: 260,
+                        child: Image.network(
+                          informationProvider2[index]['image'] ?? '',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+
+          //Comdy
+          Container(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: TextButton(
+                onPressed: () {
+                  // Handle button press
+                  print('See all pressed!');
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'See all (Comdy Books)',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.blue,
+                      size: 17,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: 320,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: informationProvider3.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        height: 300,
+                        child: Image.network(
+                          informationProvider3[index]['imagey'] ?? '',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
