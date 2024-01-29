@@ -1,5 +1,6 @@
 // information.dart
 import 'package:flutter/material.dart';
+import 'package:project_practicum/pages/Data.dart';
 
 class Information extends StatelessWidget {
   final List<String> imageUrls;
@@ -24,9 +25,21 @@ class Information extends StatelessWidget {
             child: SizedBox(
               width: 200,
               height: 300, // Adjust the height as needed
-              child: Image.network(
-                imageUrls[index],
-                fit: BoxFit.fill, // Use BoxFit.fill to fill the entire space
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Data(
+                        imageUrl: imageUrls[index],
+                      ),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  imageUrls[index],
+                  fit: BoxFit.fill, // Use BoxFit.fill to fill the entire space
+                ),
               ),
             ),
           );

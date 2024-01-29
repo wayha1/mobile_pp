@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_practicum/pages/Data.dart';
 import 'package:project_practicum/pages/information.dart';
 
 class Account extends StatefulWidget {
@@ -165,9 +166,21 @@ class _AccountState extends State<Account> {
                       SizedBox(
                         width: 200,
                         height: 260,
-                        child: Image.network(
-                          informationProvider2[index]['image'] ?? '',
-                          fit: BoxFit.cover,
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Data(
+                                    imageUrl: informationProvider2[index]['image'] ?? '',
+                                  ),
+                              ),
+                            );
+                          },
+                          child: Image.network(
+                            informationProvider2[index]['image'] ?? '',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ],
@@ -228,9 +241,21 @@ class _AccountState extends State<Account> {
                         SizedBox(
                           width: 200,
                           height: 300,
-                          child: Image.network(
-                            informationProvider3[index]['imagey'] ?? '',
-                            fit: BoxFit.cover,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Data(
+                                    imageUrl: informationProvider3[index]['imagey'] ?? '',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Image.network(
+                              informationProvider3[index]['imagey'] ?? '',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ],
