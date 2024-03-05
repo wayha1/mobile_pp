@@ -4,7 +4,7 @@ import 'package:project_practicum/pages/Read.dart';
 class Data extends StatelessWidget {
   final String imageUrl;
 
-  Data({required this.imageUrl}); // Update the constructor
+  const Data({required this.imageUrl}); // Update the constructor
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class Data extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Read(pdfUrl: 'https://res.cloudinary.com/dwt710mdu/659fbc3575615-shares-that-grow_g8gxcp.pdf')
+                          builder: (context) => Read(pdfUrl: 'https://drive.google.com/file/d/1XgeJar38zVC4Upt3vUeY3EPeaMLaxuHT/view?usp=drive_link')
                       ),
                   );
                 },

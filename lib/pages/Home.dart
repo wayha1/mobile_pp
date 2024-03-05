@@ -27,7 +27,7 @@ class _AccountState extends State<Account> {
     try {
       final response1 = await http.get(Uri.parse('http://10.0.2.2:8080'));
       final response2 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
-      final response3 = await http.get(Uri.parse('http://10.0.2.2:8080/api/comdy_information'));
+      final response3 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
 
       if (response1.statusCode == 200 && response2.statusCode == 200 && response3.statusCode == 200) {
         setState(() {
@@ -91,7 +91,7 @@ class _AccountState extends State<Account> {
                         width: 400,
                         height: 200,
                         child: Image.network(
-                          informationProvider1[index]['images'] ?? '',
+                          informationProvider1[index]['image'] ?? '',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -201,7 +201,7 @@ class _AccountState extends State<Account> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Information(
-                        imageUrls: informationProvider3.map<String>((item) => item['imagey'] ?? '').toList(),
+                        imageUrls: informationProvider3.map<String>((item) => item['image'] ?? '').toList(),
                       ),
                     ),
                   );
@@ -247,13 +247,13 @@ class _AccountState extends State<Account> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Data(
-                                    imageUrl: informationProvider3[index]['imagey'] ?? '',
+                                    imageUrl: informationProvider3[index]['image'] ?? '',
                                   ),
                                 ),
                               );
                             },
                             child: Image.network(
-                              informationProvider3[index]['imagey'] ?? '',
+                              informationProvider3[index]['image'] ?? '',
                               fit: BoxFit.cover,
                             ),
                           ),
