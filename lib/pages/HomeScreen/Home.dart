@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart'; // Import carousel_slider package
-import 'package:project_practicum/pages/Data.dart';
-import 'package:project_practicum/pages/information.dart';
+import 'package:project_practicum/pages/HomeScreen/Data.dart';
+import 'package:project_practicum/pages/HomeScreen/information.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key});
@@ -129,6 +129,10 @@ class _AccountState extends State<Account> {
               );
             }).toList(),
           ),
+
+
+
+          // Container of Comic book
           Container(
             alignment: Alignment.topLeft,
             child: Padding(
@@ -207,6 +211,10 @@ class _AccountState extends State<Account> {
               },
             ),
           ),
+
+
+
+          // Container of Comdy Book
           Container(
             alignment: Alignment.topLeft,
             child: Padding(

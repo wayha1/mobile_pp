@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_practicum/pages/Home.dart';
-import 'package:project_practicum/pages/Carts.dart';
-import 'package:project_practicum/pages/Categorybook.dart';
-import 'package:project_practicum/pages/Contactus.dart';
-import 'package:project_practicum/pages/MyFavorite.dart';
+import 'package:project_practicum/pages/HomeScreen/Home.dart';
+import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
+import 'package:project_practicum/pages/CategoryBook_Screen/Categorybook.dart';
+import 'package:project_practicum/pages/ContactUs_screen/Contactus.dart';
+import 'package:project_practicum/pages/Favorite_screen/MyFavorite.dart';
 
 class MyButtomNavBar extends StatefulWidget {
   const MyButtomNavBar({Key? key}) : super(key: key);

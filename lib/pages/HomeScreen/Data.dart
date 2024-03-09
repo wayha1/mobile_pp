@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_practicum/pages/Read.dart';
+import 'package:project_practicum/pages/HomeScreen/Read.dart';
 
 class Data extends StatelessWidget {
   final String imageUrl;

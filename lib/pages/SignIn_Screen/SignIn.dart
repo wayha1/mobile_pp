@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_practicum/component/my_button_Bar.dart';
-import 'package:project_practicum/pages/SignUp.dart';
+import 'package:project_practicum/pages/SignUp_Screen/SignUp.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);

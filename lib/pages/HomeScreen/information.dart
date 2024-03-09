@@ -1,6 +1,6 @@
 // information.dart
 import 'package:flutter/material.dart';
-import 'package:project_practicum/pages/Data.dart';
+import 'package:project_practicum/pages/HomeScreen/Data.dart';
 
 class Information extends StatelessWidget {
   final List<String> imageUrls;
