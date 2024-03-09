@@ -91,7 +91,7 @@ class _AccountState extends State<Account> {
                         width: 400,
                         height: 200,
                         child: Image.network(
-                          informationProvider1[index]['image'] ?? '',
+                          informationProvider1[index]['imaged'] ?? '',
                           fit: BoxFit.cover,
                         ),
                       ),
