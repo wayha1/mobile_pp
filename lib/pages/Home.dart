@@ -16,11 +16,26 @@ class _AccountState extends State<Account> {
   List<Map<String, dynamic>> informationProvider1 = [];
   List<Map<String, dynamic>> informationProvider2 = [];
   List<Map<String, dynamic>> informationProvider3 = [];
+  PageController _controller = PageController();
+  int _currentPage = 0; // Track the current page
 
   @override
   void initState() {
     super.initState();
     fetchData();
+    _controller.addListener(_handlePageChange); // Add listener for page changes
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Dispose the controller to avoid memory leaks
+    super.dispose();
+  }
+
+  void _handlePageChange() {
+    setState(() {
+      _currentPage = _controller.page!.round(); // Update current page
+    });
   }
 
   Future<void> fetchData() async {
@@ -29,7 +44,9 @@ class _AccountState extends State<Account> {
       final response2 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
       final response3 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
 
-      if (response1.statusCode == 200 && response2.statusCode == 200 && response3.statusCode == 200) {
+      if (response1.statusCode == 200 &&
+          response2.statusCode == 200 &&
+          response3.statusCode == 200) {
         setState(() {
           informationProvider1 = List<Map<String, dynamic>>.from(
             json.decode(response1.body),
@@ -42,7 +59,6 @@ class _AccountState extends State<Account> {
           informationProvider3 = List<Map<String, dynamic>>.from(
             json.decode(response3.body),
           );
-
         });
       } else {
         throw Exception('Failed to load data');
@@ -79,45 +95,49 @@ class _AccountState extends State<Account> {
         children: [
           Container(
             height: 260,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: informationProvider1.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 400,
-                        height: 200,
-                        child: Image.network(
-                          informationProvider1[index]['imaged'] ?? '',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Column(
-                          children: [
-                            Text(
-                              informationProvider1[index]['name'] ?? '',
-                              style: GoogleFonts.playfairDisplay(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor,
-                              ),
+            child: Stack(
+              children: [
+                ListView.builder(
+                  controller: _controller,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: informationProvider1.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 400,
+                            height: 200,
+                            child: Image.network(
+                              informationProvider1[index]['imaged'] ?? '',
+                              fit: BoxFit.cover,
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              children: [
+                                Text(
+                                  informationProvider1[index]['name'] ?? '',
+                                  style: GoogleFonts.playfairDisplay(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+                _buildDotsIndicator(),
+              ],
             ),
           ),
-
-          //Comic
           Container(
             alignment: Alignment.topLeft,
             child: Padding(
@@ -128,7 +148,9 @@ class _AccountState extends State<Account> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Information(
-                        imageUrls: informationProvider2.map<String>((item) => item['image'] ?? '').toList(),
+                        imageUrls: informationProvider2
+                            .map<String>((item) => item['image'] ?? '')
+                            .toList(),
                       ),
                     ),
                   );
@@ -153,6 +175,9 @@ class _AccountState extends State<Account> {
               ),
             ),
           ),
+          SizedBox(
+            height: 10, // Add margin here
+          ),
           Container(
             height: 320,
             child: ListView.builder(
@@ -167,13 +192,15 @@ class _AccountState extends State<Account> {
                         width: 200,
                         height: 260,
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Data(
-                                    imageUrl: informationProvider2[index]['image'] ?? '',
-                                  ),
+                                builder: (context) => Data(
+                                  imageUrl: informationProvider2[index]
+                                  ['image'] ??
+                                      '',
+                                ),
                               ),
                             );
                           },
@@ -189,8 +216,6 @@ class _AccountState extends State<Account> {
               },
             ),
           ),
-
-          //Comedy
           Container(
             alignment: Alignment.topLeft,
             child: Padding(
@@ -201,7 +226,9 @@ class _AccountState extends State<Account> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Information(
-                        imageUrls: informationProvider3.map<String>((item) => item['image'] ?? '').toList(),
+                        imageUrls: informationProvider3
+                            .map<String>((item) => item['image'] ?? '')
+                            .toList(),
                       ),
                     ),
                   );
@@ -226,46 +253,75 @@ class _AccountState extends State<Account> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Container(
-              height: 320,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: informationProvider3.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 200,
-                          height: 300,
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Data(
-                                    imageUrl: informationProvider3[index]['image'] ?? '',
-                                  ),
+          SizedBox(
+            height: 10, // Add margin here
+          ),
+          Container(
+            height: 320,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: informationProvider3.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        height: 300,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Data(
+                                  imageUrl: informationProvider3[index]
+                                  ['image'] ??
+                                      '',
                                 ),
-                              );
-                            },
-                            child: Image.network(
-                              informationProvider3[index]['image'] ?? '',
-                              fit: BoxFit.cover,
-                            ),
+                              ),
+                            );
+                          },
+                          child: Image.network(
+                            informationProvider3[index]['image'] ?? '',
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDotsIndicator() {
+    return Positioned(
+      bottom: 10.0,
+      left: 0,
+      right: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          informationProvider1.length,
+              (index) {
+            return Container(
+              width: 10.0,
+              height: 10.0,
+              margin: EdgeInsets.symmetric(horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentPage == index
+                    ? Colors.green
+                    : Colors.grey.withOpacity(0.5),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
