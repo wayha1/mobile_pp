@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:carousel_slider/carousel_slider.dart'; // Import carousel_slider package
 import 'package:project_practicum/pages/Data.dart';
 import 'package:project_practicum/pages/information.dart';
 
@@ -16,26 +17,12 @@ class _AccountState extends State<Account> {
   List<Map<String, dynamic>> informationProvider1 = [];
   List<Map<String, dynamic>> informationProvider2 = [];
   List<Map<String, dynamic>> informationProvider3 = [];
-  PageController _controller = PageController();
   int _currentPage = 0; // Track the current page
 
   @override
   void initState() {
     super.initState();
     fetchData();
-    _controller.addListener(_handlePageChange); // Add listener for page changes
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose(); // Dispose the controller to avoid memory leaks
-    super.dispose();
-  }
-
-  void _handlePageChange() {
-    setState(() {
-      _currentPage = _controller.page!.round(); // Update current page
-    });
   }
 
   Future<void> fetchData() async {
@@ -93,50 +80,54 @@ class _AccountState extends State<Account> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          Container(
-            height: 260,
-            child: Stack(
-              children: [
-                ListView.builder(
-                  controller: _controller,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: informationProvider1.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 400,
-                            height: 200,
-                            child: Image.network(
-                              informationProvider1[index]['imaged'] ?? '',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  informationProvider1[index]['name'] ?? '',
-                                  style: GoogleFonts.playfairDisplay(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                _buildDotsIndicator(),
-              ],
+          // Carousel Slider
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 260,
+              enableInfiniteScroll: true, // Optional: Enable infinite scroll
+              autoPlay: true, // Optional: Enable auto play
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
             ),
+            items: informationProvider1.map((item) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: 400,
+                          height: 200,
+                          child: Image.network(
+                            item['imaged'] ?? '',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(
+                            children: [
+                              Text(
+                                item['name'] ?? '',
+                                style: GoogleFonts.playfairDisplay(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }).toList(),
           ),
           Container(
             alignment: Alignment.topLeft,
@@ -295,33 +286,6 @@ class _AccountState extends State<Account> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildDotsIndicator() {
-    return Positioned(
-      bottom: 10.0,
-      left: 0,
-      right: 0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(
-          informationProvider1.length,
-              (index) {
-            return Container(
-              width: 10.0,
-              height: 10.0,
-              margin: EdgeInsets.symmetric(horizontal: 2.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentPage == index
-                    ? Colors.green
-                    : Colors.grey.withOpacity(0.5),
-              ),
-            );
-          },
-        ),
       ),
     );
   }
