@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:project_practicum/component/my_button_Bar.dart';
 import 'package:project_practicum/pages/SignUp_Screen/SignUp.dart';
 
@@ -11,11 +12,42 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-
   final _username = TextEditingController();
   final _password = TextEditingController();
   bool _validateUsername = false;
   bool _validatePassword = false;
+
+  Future<void> _signIn() async {
+    setState(() {
+      _validateUsername = _username.text.isEmpty;
+      _validatePassword = _password.text.isEmpty;
+    });
+
+    if (!_validateUsername && !_validatePassword) {
+      final url = Uri.parse('http://10.0.2.2:5000/auth/login');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'username': _username.text,
+          'password': _password.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Authentication successful
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyButtomNavBar()),
+        );
+      } else {
+        // Authentication failed, show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Invalid email or password')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,44 +66,41 @@ class _SignInState extends State<SignIn> {
                     children: [
                       Text(
                         'WELCOME TO OUR APP',
-                        style: GoogleFonts.lobster(
+                        style: TextStyle(
                           fontSize: 20,
                           color: Colors.green.shade800,
                         ),
                       ),
                       Text(
                         'Sign up or log in to \nenjoy your time.',
-                        style: GoogleFonts.asapCondensed(
+                        style: TextStyle(
                           fontSize: 15,
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(width: 10), // Add space between text and image
+                SizedBox(width: 10),
                 Container(
-                  width: 100, // Set the width of the image container
-                  height: 100, // Set the height of the image container
+                  width: 100,
+                  height: 100,
                   child: Image.asset(
-                    'lib/image/d.jpg', // Replace with your image path
+                    'lib/image/d.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10), // Add space between the Row and the TextField
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Container(
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email),
                     labelText: "Email Address",
                     errorText: _validateUsername?'email cannot be null':null,
-                    labelStyle: GoogleFonts.bitter(
-                      fontSize: 15
-                    ),
                   ),
                   controller: _username,
                 ),
@@ -86,15 +115,11 @@ class _SignInState extends State<SignIn> {
                     prefixIcon: Icon(Icons.password),
                     labelText: "Password",
                     errorText: _validatePassword?'password cannot be null':null,
-                    labelStyle: GoogleFonts.bitter(
-                        fontSize: 15
-                    ),
                   ),
                   controller: _password,
                 ),
               ),
             ),
-
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -102,17 +127,9 @@ class _SignInState extends State<SignIn> {
                   Padding(
                     padding: const EdgeInsets.only(top: 60, bottom: 40, right: 20),
                     child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _username.text.isEmpty?_validateUsername = true:_validateUsername = false;
-                          _password.text.isEmpty?_validatePassword = true:_validatePassword = false;
-                          if(_username.text == 'root' && _password.text == 'root'){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyButtomNavBar()));
-                          }
-                        });
-                      },
+                      onPressed: _signIn,
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.green.shade700, // Adjust color as needed
+                        backgroundColor: Colors.green.shade700,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -120,7 +137,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: Text(
                         'SIGN IN',
-                        style: GoogleFonts.slabo27px(
+                        style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         ),
@@ -132,8 +149,8 @@ class _SignInState extends State<SignIn> {
                     child: TextButton(
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()),
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
                         );
                       },
                       style: TextButton.styleFrom(
@@ -145,7 +162,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: Text(
                         'SIGN UP',
-                        style: GoogleFonts.slabo27px(
+                        style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         ),
@@ -155,20 +172,20 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            SizedBox(height: 10), // Add spacing between the button and the lines
+            SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
                   child: Container(
-                    height: 1, // Set the height of the line
-                    color: Colors.grey, // Set the color of the line
+                    height: 1,
+                    color: Colors.grey,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8 ,vertical: 8),
                   child: Text(
                     'OR login with',
-                    style: GoogleFonts.indieFlower(
+                    style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey.shade600,
                     ),
@@ -176,8 +193,8 @@ class _SignInState extends State<SignIn> {
                 ),
                 Expanded(
                   child: Container(
-                    height: 1, // Set the height of the line
-                    color: Colors.grey, // Set the color of the line
+                    height: 1,
+                    color: Colors.grey,
                   ),
                 ),
               ],
@@ -236,23 +253,26 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('cambodia',
-                  style: GoogleFonts.breeSerif(
-                    fontSize: 16,
-                      color: Colors.grey.shade500
-                  ),),
-                  Text('E-Library Ltd.',
-                    style: GoogleFonts.breeSerif(
+                    style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey.shade500
-                    ),),
-                  Text('Tos Ran',
-                    style: GoogleFonts.breeSerif(
+                    ),
+                  ),
+                  Text('E-Library Ltd.',
+                    style: TextStyle(
                         fontSize: 16,
-                      color: Colors.grey.shade500
-                    ),)
+                        color: Colors.grey.shade500
+                    ),
+                  ),
+                  Text('Tos Ran',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey.shade500
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -37,6 +37,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^24.1.47
   flutter_pdfview: ^1.0.0
   carousel_slider: ^4.2.1
+  flutter_secure_storage: ^9.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
