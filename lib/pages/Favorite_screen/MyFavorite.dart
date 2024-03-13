@@ -8,6 +8,7 @@ class MyFavorite extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade200,
+        automaticallyImplyLeading: false, // Add this line
         title: Text('Favorite Screen'),
       ),
       body: Center(

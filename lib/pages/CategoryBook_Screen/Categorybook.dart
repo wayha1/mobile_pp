@@ -9,6 +9,7 @@ class CategoryBook extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
+        automaticallyImplyLeading: false, // Add this line
         title: Text(
             'Favorite',
         style: GoogleFonts.asapCondensed(

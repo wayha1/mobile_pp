@@ -9,6 +9,7 @@ class Contactus extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
+        automaticallyImplyLeading: false, // Add this line
         title: Text(
           'Setting',
           style: GoogleFonts.asapCondensed(
