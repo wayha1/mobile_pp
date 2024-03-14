@@ -38,7 +38,8 @@ class _SignInState extends State<SignIn> {
         // Authentication successful
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MyButtomNavBar()),
+          MaterialPageRoute(
+              builder: (context) => MyButtomNavBar()),
         );
       } else {
         // Authentication failed, show error message

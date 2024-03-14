@@ -17,7 +17,6 @@ class _AccountState extends State<Account> {
   List<Map<String, dynamic>> informationProvider1 = [];
   List<Map<String, dynamic>> informationProvider2 = [];
   List<Map<String, dynamic>> informationProvider3 = [];
-  int _currentPage = 0; // Track the current page
 
   @override
   void initState() {
@@ -87,9 +86,7 @@ class _AccountState extends State<Account> {
               enableInfiniteScroll: true, // Optional: Enable infinite scroll
               autoPlay: true, // Optional: Enable auto play
               onPageChanged: (index, reason) {
-                setState(() {
-                  _currentPage = index;
-                });
+
               },
             ),
             items: informationProvider1.map((item) {
