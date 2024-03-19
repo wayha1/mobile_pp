@@ -26,24 +26,20 @@ class _AccountState extends State<Account> {
 
   Future<void> fetchData() async {
     try {
-      final response1 = await http.get(Uri.parse('http://10.0.2.2:8080'));
-      final response2 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
-      final response3 = await http.get(Uri.parse('http://10.0.2.2:8080/api/movie_information'));
+      final jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMDgzOTgyNiwianRpIjoiZTY4NDRlYjctZWMxMi00M2Y3LTg4NTktOTZlMDYyYzExMzExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImFkbWluIiwibmJmIjoxNzEwODM5ODI2LCJjc3JmIjoiNzQ0NjkyNzQtZDlhNi00MTNmLWE3OTEtNTZjMzgyMGM2OTI4IiwiZXhwIjoxNzEwODQwNzI2fQ.IObEf_dC2m-SatIebHo-rGidxepA05ZV1AmZVnoN7V4'; // Replace with your actual JWT token
+      final response1 = await http.get(
+        Uri.parse('http://10.0.2.2:5000/books/book'),
+        headers: {
+          'Authorization': 'Bearer $jwtToken',
+        },
+      );
+      print('Response 1 Status Code: ${response1.statusCode}');
+      print('Response 1 Body: ${response1.body}');
 
-      if (response1.statusCode == 200 &&
-          response2.statusCode == 200 &&
-          response3.statusCode == 200) {
+      if (response1.statusCode == 200) {
         setState(() {
           informationProvider1 = List<Map<String, dynamic>>.from(
             json.decode(response1.body),
-          );
-
-          informationProvider2 = List<Map<String, dynamic>>.from(
-            json.decode(response2.body),
-          );
-
-          informationProvider3 = List<Map<String, dynamic>>.from(
-            json.decode(response3.body),
           );
         });
       } else {
@@ -54,6 +50,8 @@ class _AccountState extends State<Account> {
       // Handle errors appropriately
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +98,7 @@ class _AccountState extends State<Account> {
                           width: 400,
                           height: 200,
                           child: Image.network(
-                            item['imaged'] ?? '',
+                            item['book_image'] ?? '',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -109,7 +107,7 @@ class _AccountState extends State<Account> {
                           child: Column(
                             children: [
                               Text(
-                                item['name'] ?? '',
+                                item['title'] ?? '',
                                 style: GoogleFonts.playfairDisplay(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -141,7 +139,7 @@ class _AccountState extends State<Account> {
                     MaterialPageRoute(
                       builder: (context) => Information(
                         imageUrls: informationProvider2
-                            .map<String>((item) => item['image'] ?? '')
+                            .map<String>((item) => item['book_image'] ?? '')
                             .toList(),
                       ),
                     ),
@@ -190,14 +188,14 @@ class _AccountState extends State<Account> {
                               MaterialPageRoute(
                                 builder: (context) => Data(
                                   imageUrl: informationProvider2[index]
-                                  ['image'] ??
+                                  ['book_image'] ??
                                       '',
                                 ),
                               ),
                             );
                           },
                           child: Image.network(
-                            informationProvider2[index]['image'] ?? '',
+                            informationProvider2[index]['book_image'] ?? '',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -223,7 +221,7 @@ class _AccountState extends State<Account> {
                     MaterialPageRoute(
                       builder: (context) => Information(
                         imageUrls: informationProvider3
-                            .map<String>((item) => item['image'] ?? '')
+                            .map<String>((item) => item['book_image'] ?? '')
                             .toList(),
                       ),
                     ),
@@ -272,14 +270,14 @@ class _AccountState extends State<Account> {
                               MaterialPageRoute(
                                 builder: (context) => Data(
                                   imageUrl: informationProvider3[index]
-                                  ['image'] ??
+                                  ['book_image'] ??
                                       '',
                                 ),
                               ),
                             );
                           },
                           child: Image.network(
-                            informationProvider3[index]['image'] ?? '',
+                            informationProvider3[index]['book_image'] ?? '',
                             fit: BoxFit.cover,
                           ),
                         ),
