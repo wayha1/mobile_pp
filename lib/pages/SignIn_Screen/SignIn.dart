@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_practicum/component/my_button_Bar.dart';
 import 'package:project_practicum/pages/SignUp_Screen/SignUp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -16,6 +17,20 @@ class _SignInState extends State<SignIn> {
   final _password = TextEditingController();
   bool _validateUsername = false;
   bool _validatePassword = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Execute the delayed initialization of SharedPreferences
+    Future.delayed(Duration.zero, () {
+      _initSharedPreferences();
+    });
+  }
+
+  Future<void> _initSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Now you can use SharedPreferences
+  }
 
   Future<void> _signIn() async {
     setState(() {
@@ -35,14 +50,19 @@ class _SignInState extends State<SignIn> {
       );
 
       if (response.statusCode == 200) {
-        // Authentication successful
-        Navigator.push(
+        final responseData = jsonDecode(response.body);
+        final accessToken = responseData['access_token'];
+
+        // Store the access token locally using SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('accessToken', accessToken);
+
+        // Navigate to the next screen
+        Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => MyButtomNavBar()),
+          MaterialPageRoute(builder: (context) => MyButtomNavBar()),
         );
       } else {
-        // Authentication failed, show error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Invalid email or password')),
         );
