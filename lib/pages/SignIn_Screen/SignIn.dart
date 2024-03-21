@@ -57,6 +57,9 @@ class _SignInState extends State<SignIn> {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('accessToken', accessToken);
 
+        // Print the access token
+        print('Access Token: $accessToken');
+
         // Navigate to the next screen
         Navigator.pushReplacement(
           context,

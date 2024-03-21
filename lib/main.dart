@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/myfavorite' : (context) => const MyFavorite(),
         '/carts' : (context) => const Carts(),
         '/contactus' : (context) => const Contactus(),
-        '/account' : (context) => const Account(),
+        '/account' : (context) => const Account(accessToken: 'accessToken',),
         // '/signIn': (context) => const SignIn(),
         '/signUp': (context) => const SignUp(),
         '/mm': (context) => const MyButtomNavBar(),

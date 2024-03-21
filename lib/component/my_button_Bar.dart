@@ -15,7 +15,7 @@ class MyButtomNavBar extends StatefulWidget {
 class _MyButtomNavBarState extends State<MyButtomNavBar> {
   int myCurrentIndex = 0;
   List pages = const [
-    Account(),
+    Account(accessToken: 'accessToken',),
     Carts(),
     CategoryBook(),
     Contactus(),
