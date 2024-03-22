@@ -77,7 +77,7 @@ class _SignInState extends State<SignIn> {
         // Navigate to the next screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const MyButtomNavBar()),
+          MaterialPageRoute(builder: (context) => Account(accessToken: accessToken)),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

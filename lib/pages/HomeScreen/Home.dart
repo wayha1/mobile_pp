@@ -26,22 +26,17 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     super.initState();
-    getAccessToken(); // Call getAccessToken in initState
-  }
-
-  Future<void> getAccessToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      accessToken = prefs.getString('access_token') ?? widget.accessToken;
-    });
-    print('Access Token: $accessToken'); // Print access token
-    fetchData(); // Call fetchData after accessToken is fetched
+    fetchData(); // Call getAccessToken in initState
   }
 
   Future<void> fetchData() async {
     try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final accessToken = prefs.getString('access_token') ?? widget.accessToken;
+
       final response1 = await http.get(
-          Uri.parse('http://10.0.2.2:5000/books/book'),
+        Uri.parse('http://10.0.2.2:5000/books/book'),
+        headers: {'Authorization': 'Bearer $accessToken'}, // Include access token in headers
       );
 
       if (response1.statusCode == 200) {
@@ -51,17 +46,18 @@ class _AccountState extends State<Account> {
           informationProvider1 = List<Map<String, dynamic>>.from(
             responseData,
           );
-
-
-
         });
       } else {
+        print('Failed to load data - Status Code: ${response1.statusCode}');
+        print('Response Body: ${response1.body}');
         throw Exception('Failed to load data');
       }
     } catch (error) {
       print('Error: $error');
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
