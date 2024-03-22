@@ -18,6 +18,7 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   List<Map<String, dynamic>> informationProvider1 = [];
+
   String? accessToken;
 
   @override
