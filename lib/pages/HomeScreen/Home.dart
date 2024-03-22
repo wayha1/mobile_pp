@@ -48,6 +48,8 @@ class _AccountState extends State<Account> {
           informationProvider1 = List<Map<String, dynamic>>.from(
             responseData,
           );
+
+
         });
       } else {
         throw Exception('Failed to load data');
