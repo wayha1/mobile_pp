@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_practicum/component/my_button_Bar.dart';
+import 'package:project_practicum/pages/HomeScreen/Home.dart';
 import 'package:project_practicum/pages/SignUp_Screen/SignUp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,20 +18,23 @@ class _SignInState extends State<SignIn> {
   final _password = TextEditingController();
   bool _validateUsername = false;
   bool _validatePassword = false;
+  //late String accessToken;
 
   @override
   void initState() {
     super.initState();
     // Execute the delayed initialization of SharedPreferences
-    Future.delayed(Duration.zero, () {
-      _initSharedPreferences();
-    });
+    // Future.delayed(Duration.zero, () {
+    //   _initSharedPreferences();
+    // });
   }
 
-  Future<void> _initSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    // Now you can use SharedPreferences
-  }
+  // Future<void> _initSharedPreferences() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final storedToken = prefs.getString('access_token');
+  //   print('Stored Access Token: $storedToken');
+  // }
+
 
   Future<void> _signIn() async {
     setState(() {
@@ -53,17 +57,21 @@ class _SignInState extends State<SignIn> {
         final responseData = jsonDecode(response.body);
         final accessToken = responseData['access_token'];
 
+        // Print the entire response body for debugging
+        print('Response Body: ${response.body}');
+
         // Store the access token locally using SharedPreferences
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('accessToken', accessToken);
+        await prefs.setString('access_token', accessToken);
 
-        // Print the access token
-        print('Access Token: $accessToken');
+        // Retrieve the access token from SharedPreferences
+        final storedToken = prefs.getString('access_token');
+        print('Stored Access Token: $storedToken');
 
         // Navigate to the next screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyButtomNavBar()),
+          MaterialPageRoute(builder: (context) => const MyButtomNavBar()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

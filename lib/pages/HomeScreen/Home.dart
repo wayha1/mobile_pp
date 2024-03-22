@@ -5,12 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart'; // Import carousel_slider package
 import 'package:project_practicum/pages/HomeScreen/Data.dart';
 import 'package:project_practicum/pages/HomeScreen/information.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Account extends StatefulWidget {
   final String accessToken;
 
   const Account({required this.accessToken, Key? key}) : super(key: key);
-  // const Account({Key? key});
 
   @override
   State<Account> createState() => _AccountState();
@@ -18,58 +18,44 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   List<Map<String, dynamic>> informationProvider1 = [];
-  // List<Map<String, dynamic>> informationProvider2 = [];
-  // List<Map<String, dynamic>> informationProvider3 = [];
+  String? accessToken;
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    getAccessToken(); // Call getAccessToken in initState
   }
 
+  Future<void> getAccessToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      accessToken = prefs.getString('access_token') ?? widget.accessToken;
+    });
+    print('Access Token: $accessToken'); // Print access token
+    fetchData(); // Call fetchData after accessToken is fetched
+  }
 
   Future<void> fetchData() async {
     try {
-      final headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${widget.accessToken}',
-      };
-
       final response1 = await http.get(
-        Uri.parse('http://10.0.2.2:5000/Books/Book'),
-        headers: headers,
+          Uri.parse('http://10.0.2.2:5000/books/book'),
       );
-      // final response2 = await http.get(Uri.parse('http://10.0.2.2:5000/Books/Book'));
-      // final response3 = await http.get(Uri.parse('http://10.0.2.2:5000/Books/Book'));
 
-      if (response1.statusCode == 200
-      //&&
-          // response2.statusCode == 200 &&
-          // response3.statusCode == 200
-      ) {
+      if (response1.statusCode == 200) {
+        final responseData = json.decode(response1.body);
+        print('Response Body: $responseData'); // Print response body
         setState(() {
           informationProvider1 = List<Map<String, dynamic>>.from(
-            json.decode(response1.body),
+            responseData,
           );
-
-          // informationProvider2 = List<Map<String, dynamic>>.from(
-          //   json.decode(response2.body),
-          // );
-          //
-          // informationProvider3 = List<Map<String, dynamic>>.from(
-          //   json.decode(response3.body),
-          // );
         });
       } else {
         throw Exception('Failed to load data');
       }
     } catch (error) {
       print('Error: $error');
-      // Handle errors appropriately
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,15 +81,12 @@ class _AccountState extends State<Account> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          // Carousel Slider
           CarouselSlider(
             options: CarouselOptions(
               height: 260,
-              enableInfiniteScroll: true, // Optional: Enable infinite scroll
-              autoPlay: true, // Optional: Enable auto play
-              onPageChanged: (index, reason) {
-
-              },
+              enableInfiniteScroll: true,
+              autoPlay: true,
+              onPageChanged: (index, reason) {},
             ),
             items: informationProvider1.map((item) {
               return Builder(
@@ -142,170 +125,6 @@ class _AccountState extends State<Account> {
               );
             }).toList(),
           ),
-
-
-
-          // // Container of Comic book
-          // Container(
-          //   alignment: Alignment.topLeft,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(left: 10),
-          //     child: TextButton(
-          //       onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => Information(
-          //               imageUrls: informationProvider2
-          //                   .map<String>((item) => item['book_image'] ?? '')
-          //                   .toList(),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //       child: Row(
-          //         children: [
-          //           Text(
-          //             'See all (Comic Books)',
-          //             style: TextStyle(
-          //               fontSize: 20,
-          //               color: Colors.blue,
-          //             ),
-          //           ),
-          //           SizedBox(width: 8),
-          //           Icon(
-          //             Icons.arrow_forward_ios,
-          //             color: Colors.blue,
-          //             size: 17,
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 10, // Add margin here
-          // ),
-          // Container(
-          //   height: 320,
-          //   child: ListView.builder(
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: informationProvider2.length,
-          //     itemBuilder: (context, index) {
-          //       return Padding(
-          //         padding: EdgeInsets.all(10.0),
-          //         child: Column(
-          //           children: [
-          //             SizedBox(
-          //               width: 200,
-          //               height: 260,
-          //               child: GestureDetector(
-          //                 onTap: () {
-          //                   Navigator.push(
-          //                     context,
-          //                     MaterialPageRoute(
-          //                       builder: (context) => Data(
-          //                         imageUrl: informationProvider2[index]
-          //                         ['book_image'] ??
-          //                             '',
-          //                       ),
-          //                     ),
-          //                   );
-          //                 },
-          //                 child: Image.network(
-          //                   informationProvider2[index]['book_image'] ?? '',
-          //                   fit: BoxFit.cover,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
-          //
-          //
-          //
-          // // Container of Comdy Book
-          // Container(
-          //   alignment: Alignment.topLeft,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(left: 10),
-          //     child: TextButton(
-          //       onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => Information(
-          //               imageUrls: informationProvider3
-          //                   .map<String>((item) => item['book_image'] ?? '')
-          //                   .toList(),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //       child: Row(
-          //         children: [
-          //           Text(
-          //             'See all (Comedy Books)',
-          //             style: TextStyle(
-          //               fontSize: 20,
-          //               color: Colors.blue,
-          //             ),
-          //           ),
-          //           SizedBox(width: 8),
-          //           Icon(
-          //             Icons.arrow_forward_ios,
-          //             color: Colors.blue,
-          //             size: 17,
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 10, // Add margin here
-          // ),
-          // Container(
-          //   height: 320,
-          //   child: ListView.builder(
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: informationProvider3.length,
-          //     itemBuilder: (context, index) {
-          //       return Padding(
-          //         padding: EdgeInsets.all(10.0),
-          //         child: Column(
-          //           children: [
-          //             SizedBox(
-          //               width: 200,
-          //               height: 300,
-          //               child: GestureDetector(
-          //                 onTap: () {
-          //                   Navigator.push(
-          //                     context,
-          //                     MaterialPageRoute(
-          //                       builder: (context) => Data(
-          //                         imageUrl: informationProvider3[index]
-          //                         ['book_image'] ??
-          //                             '',
-          //                       ),
-          //                     ),
-          //                   );
-          //                 },
-          //                 child: Image.network(
-          //                   informationProvider3[index]['book_image'] ?? '',
-          //                   fit: BoxFit.cover,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );
