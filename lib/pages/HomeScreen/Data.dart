@@ -32,14 +32,7 @@ class Data extends StatelessWidget {
               ),
               TextButton(
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Read(pdfUrl: 'https://drive.google.com/file/d/1XgeJar38zVC4Upt3vUeY3EPeaMLaxuHT/view?usp=drive_link')
-                      ),
-                  );
-                },
+                onPressed: () {},
 
                 child: Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
