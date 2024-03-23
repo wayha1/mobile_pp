@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 
 class Contactus extends StatefulWidget {
   const Contactus({Key? key});
@@ -21,7 +21,7 @@ class _ContactusState extends State<Contactus>{
         automaticallyImplyLeading: false, // Add this line
         title: Text(
           'Setting',
-          style: GoogleFonts.asapCondensed(
+          style: TextStyle(
             fontSize: 25,
             color: Colors.white,
 
@@ -60,7 +60,7 @@ class _ContactusState extends State<Contactus>{
                                 children: [
                                   Text(
                                     'Display Name:',
-                                    style: GoogleFonts.asapCondensed(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.black,
                                     ),
@@ -108,7 +108,7 @@ class _ContactusState extends State<Contactus>{
                                     children: [
                                       Text(
                                         'Display Name:',
-                                        style: GoogleFonts.asapCondensed(
+                                        style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.black,
                                         ),

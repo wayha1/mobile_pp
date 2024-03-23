@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 
 class Carts extends StatefulWidget {
   const Carts({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _CartsState extends State<Carts> {
         automaticallyImplyLeading: false, // Add this line
         title: Text(
           'Carts',
-          style: GoogleFonts.acme(
+          style: TextStyle(
             fontSize: 25,
             color: Colors.black54,
           ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_practicum/component/my_button_Bar.dart';
 
@@ -67,7 +67,7 @@ class _SignUpState extends State<SignUp>{
       appBar: AppBar(
         backgroundColor: Colors.green.shade600,
         title: Text('Create eLibrary account',
-          style: GoogleFonts.lora(
+          style: TextStyle(
               color: Colors.white,
               fontSize: 20
           ),),
@@ -82,7 +82,7 @@ class _SignUpState extends State<SignUp>{
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
                   'NickName *', // Your label text
-                  style: GoogleFonts.dancingScript(
+                  style: TextStyle(
                       fontSize: 15,
                       color: Colors.green.shade500
                   ),
@@ -100,7 +100,7 @@ class _SignUpState extends State<SignUp>{
                 padding: const EdgeInsets.only(bottom: 10, top: 50),
                 child: Text(
                   'Email Address *', // Your label text
-                  style: GoogleFonts.dancingScript(
+                  style: TextStyle(
                       fontSize: 15,
                       color: Colors.green.shade500
                   ),
@@ -118,7 +118,7 @@ class _SignUpState extends State<SignUp>{
                 padding: const EdgeInsets.only(top: 50, bottom: 10),
                 child: Text(
                   'PASSWORD *', // Your label text
-                  style: GoogleFonts.dancingScript(
+                  style: TextStyle(
                       fontSize: 15,
                       color: Colors.green.shade500
                   ),
@@ -138,7 +138,7 @@ class _SignUpState extends State<SignUp>{
             padding: const EdgeInsets.only(top: 50, bottom: 10),
             child: Text(
               'Gender*', // Your label text
-              style: GoogleFonts.dancingScript(
+              style: TextStyle(
                   fontSize: 15,
                   color: Colors.green.shade500
               ),
@@ -159,7 +159,7 @@ class _SignUpState extends State<SignUp>{
               child: Column(
                 children: [
                   Text('By Sign up, I agree to the Terms Of Use and Privancy Policy of Our App.',
-                    style: GoogleFonts.crimsonText(
+                    style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade500,
                     ),
@@ -171,7 +171,7 @@ class _SignUpState extends State<SignUp>{
                         'as wellwahtever you want to buy or read it.for Our App'
                         'You will get the good Book and good author as well. You can'
                         'search one ever you want when you want the book to read.THANK YOU!',
-                      style: GoogleFonts.crimsonText(
+                      style:TextStyle(
                         fontSize: 15,
                         color: Colors.grey.shade500,
                       ),
@@ -196,7 +196,7 @@ class _SignUpState extends State<SignUp>{
                 ),
                 child: Text(
                   'SIGN UP',
-                  style: GoogleFonts.arvo(
+                  style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                     // You can add other text style properties here

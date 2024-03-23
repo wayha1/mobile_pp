@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 
 class CategoryBook extends StatelessWidget {
   const CategoryBook({super.key});
@@ -12,7 +12,7 @@ class CategoryBook extends StatelessWidget {
         automaticallyImplyLeading: false, // Add this line
         title: Text(
             'Favorite',
-        style: GoogleFonts.asapCondensed(
+        style: TextStyle(
           fontSize: 25,
           color: Colors.black54,
         ),),

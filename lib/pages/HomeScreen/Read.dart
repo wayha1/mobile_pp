@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+//import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 //import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class Read extends StatelessWidget {
@@ -14,10 +14,10 @@ class Read extends StatelessWidget {
         title: Text('Read'),
         backgroundColor: Colors.green.shade300,
       ),
-      body: SfPdfViewer.network(
-        pdfUrl,
-        canShowPaginationDialog: true,
-      ),
+      // body: SfPdfViewer.network(
+      //   pdfUrl,
+      //   canShowPaginationDialog: true,
+      // ),
     );
   }
 }
