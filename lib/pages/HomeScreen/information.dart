@@ -33,6 +33,8 @@ class Information extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => Data(
                         imageUrl: books[index]['book_image'],
+                        titleBook: books[index]['title'],
+                        priceBook: books[index]['price'],
                       ),
                     ),
                   );

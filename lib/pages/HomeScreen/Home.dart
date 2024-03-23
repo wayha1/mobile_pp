@@ -237,6 +237,8 @@ class _AccountState extends State<Account> {
                                   builder: (context) => Data(
                                     imageUrl: comicBooks[index]
                                     ['book_image'] ?? '',
+                                    titleBook: comicBooks[index]['title'] ?? '',
+                                    priceBook: comicBooks[index]['price'] ?? ''.toString(),
                                   ),
                                 ),
                             );
@@ -333,6 +335,8 @@ class _AccountState extends State<Account> {
                                 builder: (context) => Data(
                                   imageUrl: comdyBooks[index]
                                   ['book_image'] ?? '',
+                                  titleBook: comdyBooks[index]['title'] ?? '',
+                                  priceBook: comdyBooks[index]['price'] ?? ''.toString(),
                                 ),
                               ),
                             );
