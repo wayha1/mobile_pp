@@ -74,6 +74,26 @@ class _AccountState extends State<Account> {
         print('Response Body: ${response2.body}');
         throw Exception('Failed to load data');
       }
+
+      //response3
+      final response3 = await http.get(
+        Uri.parse('http://10.0.2.2:5000/books/book'),
+        headers: {'Authorization': 'Bearer $accessToken'}, // Include access token in headers
+      );
+
+      if (response3.statusCode == 200) {
+        final responseData = json.decode(response3.body);
+        print('Response Body: $responseData'); // Print response body
+        setState(() {
+          informationProvider3 = List<Map<String, dynamic>>.from(
+            responseData,
+          );
+        });
+      } else {
+        print('Failed to load data - Status Code: ${response3.statusCode}');
+        print('Response Body: ${response3.body}');
+        throw Exception('Failed to load data');
+      }
     } catch (error) {
       print('Error: $error');
     }
@@ -81,6 +101,13 @@ class _AccountState extends State<Account> {
 
   @override
   Widget build(BuildContext context) {
+
+    // filter category 1
+    final comicBooks = informationProvider2.where((book) => book['category_id'] == 1).toList();
+
+    // filter category 2
+    final comdyBooks = informationProvider3.where((book) => book['category_id'] == 2).toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
@@ -105,7 +132,7 @@ class _AccountState extends State<Account> {
         children: [
           CarouselSlider(
             options: CarouselOptions(
-              height: 260,
+              height: 290,
               enableInfiniteScroll: true,
               autoPlay: true,
               onPageChanged: (index, reason) {},
@@ -160,9 +187,8 @@ class _AccountState extends State<Account> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Information(
-                        imageUrls: informationProvider2
-                            .map<String>((item) => item['book_image'] ?? '')
-                            .toList(),
+                        books: comicBooks,
+                        categoryName: 'Comic Books',
                       ),
                     ),
                   );
@@ -191,10 +217,10 @@ class _AccountState extends State<Account> {
             height: 10, // Add margin here
           ),
           Container(
-            height: 320,
+            height: 380,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: informationProvider2.length,
+              itemCount: comicBooks.length,
               itemBuilder: (context, index){
                 return Padding(
                   padding: EdgeInsets.all(10.0),
@@ -209,21 +235,21 @@ class _AccountState extends State<Account> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Data(
-                                    imageUrl: informationProvider2[index]
+                                    imageUrl: comicBooks[index]
                                     ['book_image'] ?? '',
                                   ),
                                 ),
                             );
                           },
                           child: Image.network(
-                            informationProvider2[index]['book_image'] ?? '',
+                            comicBooks[index]['book_image'] ?? '',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       SizedBox(height: 8), // Add spacing between image and text
                       Text(
-                        informationProvider2[index]['title'] ?? '', // Display the name
+                        'Title: ${comicBooks[index]['title'] ?? ''}',// Display the name
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -231,7 +257,7 @@ class _AccountState extends State<Account> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        informationProvider2[index]['price'] ?? '', // Display the price
+                        'Price: ${comicBooks[index]['price'] ?? ''}', // Display the price
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold
@@ -257,9 +283,8 @@ class _AccountState extends State<Account> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Information(
-                        imageUrls: informationProvider3
-                            .map<String>((item) => item['book_image'] ?? '')
-                            .toList(),
+                        books: comdyBooks,
+                        categoryName: 'Comedy Books',
                       ),
                     ),
                   );
@@ -288,10 +313,10 @@ class _AccountState extends State<Account> {
             height: 10, // Add margin here
           ),
           Container(
-            height: 320,
+            height: 420,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: informationProvider3.length,
+              itemCount: comdyBooks.length,
               itemBuilder: (context, index){
                 return Padding(
                   padding: EdgeInsets.all(10.0),
@@ -306,21 +331,21 @@ class _AccountState extends State<Account> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Data(
-                                  imageUrl: informationProvider3[index]
+                                  imageUrl: comdyBooks[index]
                                   ['book_image'] ?? '',
                                 ),
                               ),
                             );
                           },
                           child: Image.network(
-                            informationProvider3[index]['book_image'] ?? '',
+                            comdyBooks[index]['book_image'] ?? '',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       SizedBox(height: 8), // Add spacing between image and text
                       Text(
-                        informationProvider3[index]['title'] ?? '', // Display the name
+                        'Title: ${comdyBooks[index]['title'] ?? ''}', // Display the name
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -328,7 +353,7 @@ class _AccountState extends State<Account> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        informationProvider3[index]['price'] ?? '', // Display the price
+                        'Price: ${comdyBooks[index]['price'] ?? ''}', // Display the price
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold
