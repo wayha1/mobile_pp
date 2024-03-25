@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_practicum/pages/HomeScreen/Read.dart';
 
@@ -8,7 +9,6 @@ class Data extends StatefulWidget {
   final String description;
   final String publisher;
   final int authorBook;
-  // final String pdfUrl;
 
   const Data({
     required this.imageUrl,
@@ -17,7 +17,6 @@ class Data extends StatefulWidget {
     required this.description,
     required this.publisher,
     required this.authorBook,
-    // required this.pdfUrl,
   });
 
   @override
@@ -35,114 +34,152 @@ class _DataState extends State<Data> {
         backgroundColor: Colors.green.shade300,
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            margin: EdgeInsets.only(top: 20),
-            child: Column(
-              children: [
-                Text(
-                  'Title: ${widget.titleBook}',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Image.network(
-                  widget.imageUrl,
-                  width: 300,
-                  height: 300,
-                ),
-                SizedBox(height: 8),
+        child: Container(
+          color: Colors.lightBlue.shade100,
+          child: Center(
+            child: Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Column(
+                children: [
+                  // TitleBook and Image section with background color and border radius
+                  Container(
 
-                //display pdf
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue.shade500,
-                  ),
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Read(),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 5, bottom: 5, left: 10, right: 10),
-                    child: Text(
-                      'Read Now',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Title: ${widget.titleBook}',
+                          style: TextStyle(
+                            color: Colors.green.shade500,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Image.network(
+                          widget.imageUrl,
+                          width: 300,
+                          height: 300,
+                        ),
+                      ],
                     ),
                   ),
-                ),
 
-                Text(
-                  'Price of Book: ${widget.priceBook}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                  // Rest of the content with white background
+                  Container(
+                    margin: EdgeInsets.only(top: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)
+                      ),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //display pdf
+                        Container(
+                          margin: EdgeInsets.only(bottom: 8, top: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.blue.shade500,
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            width: 250,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.red),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Read(),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 10, right: 10),
+                                child: Text(
+                                  'Read Now',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          child: Text(
+                            'Price of Book: ${widget.priceBook}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                        // display publisher
+                        SizedBox(height: 8,),
+                        Text(
+                          'Publisher: ${widget.publisher}',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+
+                        // display publisher
+                        SizedBox(height: 8,),
+                        Text(
+                          'Author: ${widget.authorBook}',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+
+                        SizedBox(height: 8),
+                        // Show description with at most 3 lines
+                        Text(
+                          widget.description,
+                          maxLines: showMore ? null : 3,
+                          overflow: showMore ? TextOverflow.visible : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
+                        ),
+
+                        SizedBox(height: 8),
+                        // Button to toggle between showing more or less text
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              showMore = !showMore;
+                            });
+                          },
+                          child: Text(
+                            showMore ? 'Show Less' : 'Show More',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                      ],
+                    ),
                   ),
-                ),
-
-                // display publisher
-                SizedBox(height: 8,),
-                Text(
-                  'Publisher: ${widget.publisher}',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-
-                // display publisher
-                SizedBox(height: 8,),
-                Text(
-                  'Author: ${widget.authorBook}',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-
-                SizedBox(height: 8),
-                // Show description with at most 3 lines
-                Text(
-                  widget.description,
-                  maxLines: showMore ? null : 5,
-                  overflow: showMore ? TextOverflow.visible : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
-                ),
-
-                SizedBox(height: 8),
-                // Button to toggle between showing more or less text
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      showMore = !showMore;
-                    });
-                  },
-                  child: Text(
-                    showMore ? 'Show Less' : 'Show More',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
-                SizedBox(height: 16),
-
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+
   }
 }

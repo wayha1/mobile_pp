@@ -196,7 +196,7 @@ class _AccountState extends State<Account> {
                 child: Row(
                   children: [
                     Text(
-                      'See all (Comic Books)',
+                      'ឃើញទាំងអស់(សៀវភៅក្រលោមលោក)',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -257,6 +257,7 @@ class _AccountState extends State<Account> {
                       Text(
                         'Title: ${comicBooks[index]['title'] ?? ''}',// Display the name
                         style: TextStyle(
+                          color: Colors.green.shade600,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -265,6 +266,7 @@ class _AccountState extends State<Account> {
                       Text(
                         'Price: ${comicBooks[index]['price'] ?? ''}', // Display the price
                         style: TextStyle(
+                          color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                         ),
@@ -298,7 +300,7 @@ class _AccountState extends State<Account> {
                 child: Row(
                   children: [
                     Text(
-                      'See all (Comdy Books)',
+                      'ឃើញទាំងអស់ (សៀវភៅកំប្លែង)',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -359,6 +361,7 @@ class _AccountState extends State<Account> {
                       Text(
                         'Title: ${comdyBooks[index]['title'] ?? ''}', // Display the name
                         style: TextStyle(
+                          color: Colors.green.shade600,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -367,6 +370,7 @@ class _AccountState extends State<Account> {
                       Text(
                         'Price: ${comdyBooks[index]['price'] ?? ''}', // Display the price
                         style: TextStyle(
+                          color: Colors.grey,
                             fontSize: 16,
                             fontWeight: FontWeight.bold
                         ),
