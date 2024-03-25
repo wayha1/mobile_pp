@@ -43,7 +43,6 @@ class _DataState extends State<Data> {
                 children: [
                   // TitleBook and Image section with background color and border radius
                   Container(
-
                     padding: EdgeInsets.all(16),
                     child: Column(
                       children: [
@@ -58,8 +57,8 @@ class _DataState extends State<Data> {
                         SizedBox(height: 16),
                         Image.network(
                           widget.imageUrl,
-                          width: 300,
-                          height: 300,
+                          width: 250,
+                          height: 250,
                         ),
                       ],
                     ),
