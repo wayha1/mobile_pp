@@ -35,6 +35,7 @@ class Information extends StatelessWidget {
                         imageUrl: books[index]['book_image'],
                         titleBook: books[index]['title'],
                         priceBook: books[index]['price'],
+                        description: books[index]['description'],
                       ),
                     ),
                   );

@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 
-class Data extends StatelessWidget {
+class Data extends StatefulWidget {
   final String imageUrl;
   final String titleBook;
   final String priceBook;
+  final String description;
 
   const Data({
     required this.imageUrl,
     required this.titleBook,
     required this.priceBook,
-  }); // Update the constructor
+    required this.description,
+  });
+
+  @override
+  _DataState createState() => _DataState();
+}
+
+class _DataState extends State<Data> {
+  bool showMore = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +27,14 @@ class Data extends StatelessWidget {
         title: Text('Data'),
         backgroundColor: Colors.green.shade300,
       ),
-      body: SingleChildScrollView( // Wrap the content with SingleChildScrollView
+      body: SingleChildScrollView(
         child: Center(
           child: Container(
             margin: EdgeInsets.only(top: 20),
             child: Column(
               children: [
                 Text(
-                  'Title: ${titleBook}',
+                  'Title: ${widget.titleBook}',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -33,22 +42,37 @@ class Data extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 Image.network(
-                  imageUrl,
+                  widget.imageUrl,
                   width: 300,
                   height: 300,
                 ),
                 SizedBox(height: 8),
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Price of Book: ${priceBook}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                Text(
+                  'Price of Book: ${widget.priceBook}',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                // Show description with at most 3 lines
+                Text(
+                  widget.description,
+                  maxLines: showMore ? null : 5,
+                  overflow: showMore ? TextOverflow.visible : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
+                ),
+
+                SizedBox(height: 8),
+                // Button to toggle between showing more or less text
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      showMore = !showMore;
+                    });
+                  },
+                  child: Text(
+                    showMore ? 'Show More' : 'Show Less',
+                    style: TextStyle(color: Colors.blue),
                   ),
                 ),
                 SizedBox(height: 16),
