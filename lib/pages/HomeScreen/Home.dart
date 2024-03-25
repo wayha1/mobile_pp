@@ -240,6 +240,9 @@ class _AccountState extends State<Account> {
                                     titleBook: comicBooks[index]['title'] ?? '',
                                     priceBook: comicBooks[index]['price'] ?? ''.toString(),
                                     description: comicBooks[index]['description'] ?? '',
+                                    publisher: comicBooks[index]['publisher'] ?? '',
+                                    authorBook: comicBooks[index]['author_id'] ?? '',
+                                    // pdfUrl: comdyBooks[index]['book_pdf'],
                                   ),
                                 ),
                             );
@@ -339,6 +342,9 @@ class _AccountState extends State<Account> {
                                   titleBook: comdyBooks[index]['title'] ?? '',
                                   priceBook: comdyBooks[index]['price'] ?? ''.toString(),
                                   description: comdyBooks[index]['description'] ?? '',
+                                  publisher: comdyBooks[index]['publisher'] ?? '',
+                                  authorBook: comdyBooks[index]['author_id'] ?? '',
+                                  // pdfUrl: comdyBooks[index]['book_pdf'],
                                 ),
                               ),
                             );

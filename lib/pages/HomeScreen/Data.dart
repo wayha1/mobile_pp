@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:project_practicum/pages/HomeScreen/Read.dart';
 
 class Data extends StatefulWidget {
   final String imageUrl;
   final String titleBook;
   final String priceBook;
   final String description;
+  final String publisher;
+  final int authorBook;
+  // final String pdfUrl;
 
   const Data({
     required this.imageUrl,
     required this.titleBook,
     required this.priceBook,
     required this.description,
+    required this.publisher,
+    required this.authorBook,
+    // required this.pdfUrl,
   });
 
   @override
@@ -47,6 +54,39 @@ class _DataState extends State<Data> {
                   height: 300,
                 ),
                 SizedBox(height: 8),
+
+                //display pdf
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.blue.shade500,
+                  ),
+                ),
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Read(),
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 5, bottom: 5, left: 10, right: 10),
+                    child: Text(
+                      'Read Now',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+
                 Text(
                   'Price of Book: ${widget.priceBook}',
                   style: TextStyle(
@@ -54,6 +94,27 @@ class _DataState extends State<Data> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
+                // display publisher
+                SizedBox(height: 8,),
+                Text(
+                  'Publisher: ${widget.publisher}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+
+                // display publisher
+                SizedBox(height: 8,),
+                Text(
+                  'Author: ${widget.authorBook}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+
                 SizedBox(height: 8),
                 // Show description with at most 3 lines
                 Text(
@@ -71,34 +132,12 @@ class _DataState extends State<Data> {
                     });
                   },
                   child: Text(
-                    showMore ? 'Show More' : 'Show Less',
+                    showMore ? 'Show Less' : 'Show More',
                     style: TextStyle(color: Colors.blue),
                   ),
                 ),
                 SizedBox(height: 16),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue.shade500,
-                  ),
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
-                  ),
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 5, bottom: 5, left: 10, right: 10),
-                    child: Text(
-                      'Read Now',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+
               ],
             ),
           ),
