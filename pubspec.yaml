@@ -39,7 +39,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   shared_preferences: ^2.2.2
   path_provider: ^2.1.2
-  syncfusion_flutter_pdfviewer: ^22.2.8
+#  syncfusion_flutter_pdfviewer: ^22.2.8
 # google_fonts: ^6.2.0
 
 

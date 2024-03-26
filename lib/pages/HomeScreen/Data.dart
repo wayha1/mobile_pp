@@ -86,26 +86,83 @@ class _DataState extends State<Data> {
                             color: Colors.blue.shade500,
                           ),
                         ),
+                        // Conditionally render buttons based on the price
+                        widget.priceBook.toLowerCase() == 'free'
+                            ? Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Read Now Button
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(right: 8),
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                    MaterialStateProperty.all(
+                                        Colors.red),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Read(),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      'Read Now',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // Add to Favorites Button
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(left: 8),
+                                child: TextButton(
+                                  onPressed: () {
+                                    // Handle add to favorites action
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      'Add to Favorites',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                            : // Add to Cart Button
                         Center(
                           child: Container(
                             width: 250,
                             child: TextButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.red),
+                                backgroundColor:
+                                MaterialStateProperty.all(
+                                    Colors.green),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Read(),
-                                  ),
-                                );
+                                // Handle add to cart action
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, left: 10, right: 10),
+                                padding: const EdgeInsets.all(10),
                                 child: Text(
-                                  'Read Now',
+                                  'Add to Cart',
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
@@ -115,7 +172,6 @@ class _DataState extends State<Data> {
                             ),
                           ),
                         ),
-
                         Container(
                           margin: EdgeInsets.only(top: 20),
                           child: Text(
