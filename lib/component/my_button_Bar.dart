@@ -16,7 +16,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
   int myCurrentIndex = 0;
   List pages = const [
     Account(accessToken: 'access_Token',),
-    Carts(cartItems: []),
+    // Carts(cartItems: [],),
     CategoryBook(),
     Contactus(),
     MyFavorite(),
@@ -50,8 +50,8 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.bar_chart_outlined), label: "my shelf"),
+              // BottomNavigationBarItem(
+              //     icon: Icon(Icons.bar_chart_outlined), label: "my shelf"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.favorite), label: "Favorite"),
               BottomNavigationBarItem(

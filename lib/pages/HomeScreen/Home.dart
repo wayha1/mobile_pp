@@ -7,6 +7,8 @@ import 'package:project_practicum/pages/HomeScreen/Data.dart';
 import 'package:project_practicum/pages/HomeScreen/information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Cart_Screen/Carts.dart';
+
 class Account extends StatefulWidget {
   final String accessToken;
 
@@ -108,6 +110,8 @@ class _AccountState extends State<Account> {
     // filter category 2
     final comdyBooks = informationProvider3.where((book) => book['category_id'] == 2).toList();
 
+    List<Map<String, dynamic>> cartItems = [];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
@@ -126,6 +130,22 @@ class _AccountState extends State<Account> {
             color: Colors.black54,
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                        builder: (context) => Carts(cartItems: cartItems)
+                    ),
+                );
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+          ),
+        ],
       ),
       body: Container(
         color: Colors.grey.shade200,

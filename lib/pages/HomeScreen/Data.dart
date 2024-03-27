@@ -73,7 +73,7 @@ class _DataState extends State<Data> {
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)
+                        topRight: Radius.circular(30),
                       ),
                     ),
                     padding: EdgeInsets.all(16),
@@ -164,9 +164,9 @@ class _DataState extends State<Data> {
                                     'title': widget.titleBook,
                                     'imageUrl': widget.imageUrl,
                                   });
-                                  print('Added to cart: Title: ${widget.titleBook}, ImageUrl: ${widget.imageUrl}');
+                                  print(
+                                      'Added to cart: Title: ${widget.titleBook}, ImageUrl: ${widget.imageUrl}');
                                 });
-
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
@@ -193,23 +193,19 @@ class _DataState extends State<Data> {
                         ),
 
                         // display publisher
-                        SizedBox(height: 8,),
+                        SizedBox(height: 8),
                         Text(
                           'Publisher: ${widget.publisher}',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
 
-                        // display publisher
-                        SizedBox(height: 8,),
+                        // display author
+                        SizedBox(height: 8),
                         Text(
                           'Author: ${widget.authorBook}',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
 
                         SizedBox(height: 8),
@@ -217,7 +213,9 @@ class _DataState extends State<Data> {
                         Text(
                           widget.description,
                           maxLines: showMore ? null : 3,
-                          overflow: showMore ? TextOverflow.visible : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
+                          overflow: showMore
+                              ? TextOverflow.visible
+                              : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
                         ),
 
                         SizedBox(height: 8),
@@ -244,6 +242,5 @@ class _DataState extends State<Data> {
         ),
       ),
     );
-
   }
 }

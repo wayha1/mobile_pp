@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Carts extends StatelessWidget {
-  final List<Map<String, dynamic>>? cartItems; // Change to nullable list
+  final List<Map<String, dynamic>> cartItems; // Change to non-nullable list
 
-  const Carts({Key? key, this.cartItems}) : super(key: key);
+  const Carts({Key? key, required this.cartItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +12,12 @@ class Carts extends StatelessWidget {
         title: Text('Cart'),
         backgroundColor: Colors.green.shade300,
       ),
-      body: cartItems != null
+      body: cartItems.isNotEmpty
           ? ListView.builder(
-        itemCount: cartItems!.length,
+        itemCount: cartItems.length,
         itemBuilder: (context, index) {
-          final title = cartItems![index]['title'] ?? 'Unknown Title';
-          final imageUrl = cartItems![index]['imageUrl'] ?? '';
+          final title = cartItems[index]['title'] ?? 'Unknown Title';
+          final imageUrl = cartItems[index]['imageUrl'] ?? '';
 
           return ListTile(
             title: Text(title),
