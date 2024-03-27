@@ -59,6 +59,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline), label: "Profile"),
             ],
+
           ),
         ),
       ),

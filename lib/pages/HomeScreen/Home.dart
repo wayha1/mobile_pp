@@ -168,6 +168,7 @@ class _AccountState extends State<Account> {
                         children: [
                           SizedBox(
                             width: 400,
+
                             height: 200,
                             child: Image.network(
                               item['book_image'] ?? '',
