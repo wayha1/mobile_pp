@@ -26,6 +26,7 @@ class Data extends StatefulWidget {
 
 class _DataState extends State<Data> {
   bool showMore = false;
+  List<String> cartItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -159,14 +160,12 @@ class _DataState extends State<Data> {
                               ),
                               onPressed: () {
                                 // Handle add to cart action
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context)=>Carts(
-                                            imageUrl: widget.imageUrl
-                                        ),
-                                    ),
-                                );
+                                setState(() {
+                                  cartItems.add({
+                                    'title': widget.titleBook,
+                                    'imageUrl': widget.imageUrl,
+                                  } as String);
+                                });
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10),

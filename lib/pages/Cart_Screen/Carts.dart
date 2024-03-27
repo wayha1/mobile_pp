@@ -1,53 +1,26 @@
 import 'package:flutter/material.dart';
 
-class Carts extends StatefulWidget {
-  final String imageUrl;
+class Carts extends StatelessWidget {
+  final List<Map<String, dynamic>> cartItems;
 
-  const Carts({Key? key, required this.imageUrl}) : super(key: key);
-
-  @override
-  _CartsState createState() => _CartsState();
-}
-
-class _CartsState extends State<Carts> {
-  List<String> cartItems = [];
+  const Carts({Key? key, required this.cartItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Cart'),
         backgroundColor: Colors.green.shade300,
-        //automaticallyImplyLeading: false,
-        title: Text(
-          'Carts',
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.black54,
-          ),
-        ),
       ),
       body: ListView.builder(
         itemCount: cartItems.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Image.network(cartItems[index]),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                setState(() {
-                  cartItems.removeAt(index);
-                });
-              },
-            ),
+            title: Text(cartItems[index]['title']), // Displaying book title
+            subtitle: Image.network(cartItems[index]['imageUrl']), // Displaying book image
           );
         },
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    cartItems.add(widget.imageUrl);
   }
 }
