@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
 import 'package:project_practicum/pages/HomeScreen/Read.dart';
 
 class Data extends StatefulWidget {
@@ -158,6 +159,14 @@ class _DataState extends State<Data> {
                               ),
                               onPressed: () {
                                 // Handle add to cart action
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context)=>Carts(
+                                            imageUrl: widget.imageUrl
+                                        ),
+                                    ),
+                                );
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
