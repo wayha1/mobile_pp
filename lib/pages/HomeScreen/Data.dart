@@ -26,7 +26,7 @@ class Data extends StatefulWidget {
 
 class _DataState extends State<Data> {
   bool showMore = false;
-  List<String> cartItems = [];
+  List<Map<String, dynamic>> cartItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -159,13 +159,14 @@ class _DataState extends State<Data> {
                                     Colors.green),
                               ),
                               onPressed: () {
-                                // Handle add to cart action
                                 setState(() {
                                   cartItems.add({
                                     'title': widget.titleBook,
                                     'imageUrl': widget.imageUrl,
-                                  } as String);
+                                  });
+                                  print('Added to cart: Title: ${widget.titleBook}, ImageUrl: ${widget.imageUrl}');
                                 });
+
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
