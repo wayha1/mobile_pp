@@ -112,6 +112,13 @@ class _AccountState extends State<Account> {
 
     List<Map<String, dynamic>> cartItems = [];
 
+    // Function to add item to the cart
+    void addToCart(Map<String, dynamic> item) {
+      setState(() {
+        cartItems.add(item); // Add the item to the cartItems list
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
@@ -136,10 +143,10 @@ class _AccountState extends State<Account> {
             child: IconButton(
               onPressed: () {
                 Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                        builder: (context) => Carts(cartItems: cartItems)
-                    ),
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Carts(cartItems: cartItems, addToCart: addToCart),
+                  ),
                 );
               },
               icon: Icon(Icons.shopping_cart),

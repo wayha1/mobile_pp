@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Carts extends StatelessWidget {
-  final List<Map<String, dynamic>> cartItems; // Change to non-nullable list
+  final List<Map<String, dynamic>> cartItems;
+  final Function(Map<String, dynamic>) addToCart; // Function parameter to add items to the cart
 
-
-  const Carts({Key? key, required this.cartItems}) : super(key: key);
+  const Carts({Key? key, required this.cartItems, required this.addToCart}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,3 +43,4 @@ class Carts extends StatelessWidget {
     );
   }
 }
+
