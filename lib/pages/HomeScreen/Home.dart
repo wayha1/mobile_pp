@@ -209,38 +209,57 @@ class _AccountState extends State<Account> {
             //Container of comic book
             Container(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: TextButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Information(
-                          books: comicBooks,
-                          categoryName: 'Comic Books',
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        'ឃើញទាំងអស់(សៀវភៅក្រលោមលោក)',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.blue,
-                        size: 17,
-                      ),
-                    ],
+              padding: EdgeInsets.only(left: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'General Book',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextButton(
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Information(
+                              books: comicBooks,
+                              categoryName: 'Comic Books',
+                            ),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Aligns children to start and end of the row
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'See',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.green.shade500,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.blue,
+                                size: 17,
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
@@ -254,165 +273,239 @@ class _AccountState extends State<Account> {
                 itemBuilder: (context, index){
                   return Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 200,
-                          height: 260,
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Data(
-                                      imageUrl: comicBooks[index]
-                                      ['book_image'] ?? '',
-                                      titleBook: comicBooks[index]['title'] ?? '',
-                                      priceBook: comicBooks[index]['price'] ?? ''.toString(),
-                                      description: comicBooks[index]['description'] ?? '',
-                                      publisher: comicBooks[index]['publisher'] ?? '',
-                                      authorBook: comicBooks[index]['author_id'] ?? '',
-                                      // pdfUrl: comdyBooks[index]['book_pdf'],
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey, // Border color
+                          width: 1.0, // Border width
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            height: 260,
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Data(
+                                        imageUrl: comicBooks[index]
+                                        ['book_image'] ?? '',
+                                        titleBook: comicBooks[index]['title'] ?? '',
+                                        priceBook: comicBooks[index]['price'] ?? ''.toString(),
+                                        description: comicBooks[index]['description'] ?? '',
+                                        publisher: comicBooks[index]['publisher'] ?? '',
+                                        authorBook: comicBooks[index]['author_id'] ?? '',
+                                        // pdfUrl: comdyBooks[index]['book_pdf'],
+                                      ),
                                     ),
-                                  ),
-                              );
-                            },
-                            child: Image.network(
-                              comicBooks[index]['book_image'] ?? '',
-                              fit: BoxFit.cover,
+                                );
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 20.0),
+                                child: Image.network(
+                                  comicBooks[index]['book_image'] ?? '',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 8), // Add spacing between image and text
-                        Text(
-                          'Title: ${comicBooks[index]['title'] ?? ''} ',// Display the name
-                          style: TextStyle(
-                            color: Colors.green.shade600,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(height: 8), // Add spacing between image and text
+                          Container(
+                            padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade50, // Background color
+                              borderRadius: BorderRadius.circular(15.0),
+                              border: Border.all(
+                                color: Colors.grey, // Border color
+                                width: 2.0, // Border width
+                              ),// Rounded corners
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Title: ${comdyBooks[index]['title'] ?? ''}', // Display the name
+                                  style: TextStyle(
+                                    color: Colors.green.shade600,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Price: ${comdyBooks[index]['price'] ?? ''}\$', // Display the price with '$'
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Price: ${comicBooks[index]['price'] ?? ''}', // Display the price
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
               ),
             ),
 
-
+            SizedBox(
+              height: 30, // Add margin here
+            ),
 
             //Container of comdy book
             Container(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: TextButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Information(
-                          books: comdyBooks,
-                          categoryName: 'Comedy Books',
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        'ឃើញទាំងអស់ (សៀវភៅកំប្លែង)',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.blue,
-                        size: 17,
-                      ),
-                    ],
+              padding: EdgeInsets.only(left: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Comdy Book',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextButton(
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Information(
+                              books: comdyBooks,
+                              categoryName: 'Comedy Books',
+                            ),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'See',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.green.shade500,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.blue,
+                                size: 17,
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
-              height: 10, // Add margin here
+              height: 8, // Add margin here
             ),
             Container(
-              height: 420,
+              margin: EdgeInsets.only(bottom: 20.0),
+              height: 370,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: comdyBooks.length,
-                itemBuilder: (context, index){
+                itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 200,
-                          height: 260,
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Data(
-                                    imageUrl: comdyBooks[index]
-                                    ['book_image'] ?? '',
-                                    titleBook: comdyBooks[index]['title'] ?? '',
-                                    priceBook: comdyBooks[index]['price'] ?? ''.toString(),
-                                    description: comdyBooks[index]['description'] ?? '',
-                                    publisher: comdyBooks[index]['publisher'] ?? '',
-                                    authorBook: comdyBooks[index]['author_id'] ?? '',
-                                    // pdfUrl: comdyBooks[index]['book_pdf'],
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey, // Border color
+                          width: 1.0, // Border width
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: SizedBox(
+                              width: 200,
+                              height: 260,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Data(
+                                        imageUrl: comdyBooks[index]['book_image'] ?? '',
+                                        titleBook: comdyBooks[index]['title'] ?? '',
+                                        priceBook: comdyBooks[index]['price'] ?? ''.toString(),
+                                        description: comdyBooks[index]['description'] ?? '',
+                                        publisher: comdyBooks[index]['publisher'] ?? '',
+                                        authorBook: comdyBooks[index]['author_id'] ?? '',
+                                        // pdfUrl: comdyBooks[index]['book_pdf'],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 20.0),
+                                  child: Image.network(
+                                    comdyBooks[index]['book_image'] ?? '',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              );
-                            },
-                            child: Image.network(
-                              comdyBooks[index]['book_image'] ?? '',
-                              fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 8), // Add spacing between image and text
-                        Text(
-                          'Title: ${comdyBooks[index]['title'] ?? ''}', // Display the name
-                          style: TextStyle(
-                            color: Colors.green.shade600,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                          Container(
+                            padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade50, // Background color
+                              borderRadius: BorderRadius.circular(15.0),
+                              border: Border.all(
+                                color: Colors.grey, // Border color
+                                width: 2.0, // Border width
+                              ),// Rounded corners
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Title: ${comdyBooks[index]['title'] ?? ''}', // Display the name
+                                  style: TextStyle(
+                                    color: Colors.green.shade600,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Price: ${comdyBooks[index]['price'] ?? ''}\$', // Display the price with '$'
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Price: ${comdyBooks[index]['price'] ?? ''}', // Display the price
-                          style: TextStyle(
-                            color: Colors.grey,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
               ),
             ),
-
-
           ],
         ),
       ),
