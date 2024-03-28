@@ -48,34 +48,63 @@ class Information extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Expanded(
-                            child: Image.network(
-                              books[index]['book_image'],
-                              fit: BoxFit.fill,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey, // Border color
+                          width: 1.0, // Border width
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Expanded(
+                                child: Image.network(
+                                  books[index]['book_image'],
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                             ),
-                          ),
+                            SizedBox(height: 8),
+                            Container(
+                              padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.blue.shade50, // Background color
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                  color: Colors.grey, // Border color
+                                  width: 2.0, // Border width
+                                ),// Rounded corners
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Title: ${books[index]['title']}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    'Price: ${ books[index]['price']}',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Title: ${books[index]['title']}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Price: ${ books[index]['price']}',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
