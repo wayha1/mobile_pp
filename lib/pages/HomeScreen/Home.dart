@@ -105,10 +105,12 @@ class _AccountState extends State<Account> {
   Widget build(BuildContext context) {
 
     // filter category 1
-    final comicBooks = informationProvider2.where((book) => book['category_id'] == 1).toList();
+    // Filter category 1 books
+    final comicBooks = informationProvider1.where((book) => book['category']['id'] == 1).toList();
 
-    // filter category 2
-    final comdyBooks = informationProvider3.where((book) => book['category_id'] == 2).toList();
+// Filter category 2 books
+    final comdyBooks = informationProvider1.where((book) => book['category']['id'] == 2).toList();
+
 
     List<Map<String, dynamic>> cartItems = [];
 
@@ -145,7 +147,7 @@ class _AccountState extends State<Account> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Carts(cartItems: cartItems, addToCart: addToCart),
+                    builder: (context) => Carts(cartItems: cartItems,),
                   ),
                 );
               },
@@ -299,7 +301,7 @@ class _AccountState extends State<Account> {
                                         priceBook: comicBooks[index]['price'] ?? ''.toString(),
                                         description: comicBooks[index]['description'] ?? '',
                                         publisher: comicBooks[index]['publisher'] ?? '',
-                                        authorBook: comicBooks[index]['author_id'] ?? '',
+                                        authorBook: comicBooks[index]['author']['author_name'] ?? '',
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),
@@ -451,7 +453,7 @@ class _AccountState extends State<Account> {
                                         priceBook: comdyBooks[index]['price'] ?? ''.toString(),
                                         description: comdyBooks[index]['description'] ?? '',
                                         publisher: comdyBooks[index]['publisher'] ?? '',
-                                        authorBook: comdyBooks[index]['author_id'] ?? '',
+                                        authorBook: comdyBooks[index]['author']['author_name'] ?? '',
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),

@@ -2,45 +2,25 @@ import 'package:flutter/material.dart';
 
 class Carts extends StatelessWidget {
   final List<Map<String, dynamic>> cartItems;
-  final Function(Map<String, dynamic>) addToCart; // Function parameter to add items to the cart
 
-  const Carts({Key? key, required this.cartItems, required this.addToCart}) : super(key: key);
+  const Carts({Key? key, required this.cartItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
-        backgroundColor: Colors.green.shade300,
+        title: Text('Cart Items'),
       ),
-      body: cartItems.isNotEmpty
-          ? ListView.builder(
+      body: ListView.builder(
         itemCount: cartItems.length,
         itemBuilder: (context, index) {
-          final title = cartItems[index]['title'] ?? 'Unknown Title';
-          final imageUrl = cartItems[index]['imageUrl'] ?? '';
-
+          // Build a list tile for each item in the cartItems list
           return ListTile(
-            title: Text(title),
-            leading: imageUrl.isNotEmpty
-                ? Image.network(
-              imageUrl,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            )
-                : Container(
-              width: 50,
-              height: 50,
-              color: Colors.grey,
-            ),
+            leading: Image.network(cartItems[index]['imageUrl']),
+            title: Text(cartItems[index]['title']),
           );
         },
-      )
-          : Center(
-        child: Text('No items in the cart'),
       ),
     );
   }
 }
-
