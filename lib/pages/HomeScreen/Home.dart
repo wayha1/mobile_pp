@@ -329,7 +329,7 @@ class _AccountState extends State<Account> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Title: ${comdyBooks[index]['title'] ?? ''}', // Display the name
+                                  'Title: ${comicBooks[index]['title'] ?? ''}', // Display the name
                                   style: TextStyle(
                                     color: Colors.green.shade600,
                                     fontSize: 16,
@@ -338,7 +338,7 @@ class _AccountState extends State<Account> {
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  'Price: ${comdyBooks[index]['price'] ?? ''}\$', // Display the price with '$'
+                                  'Price: ${comicBooks[index]['price'] ?? ''}\$', // Display the price with '$'
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
