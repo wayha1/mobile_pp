@@ -42,7 +42,8 @@ class Information extends StatelessWidget {
                             priceBook: books[index]['price'],
                             description: books[index]['description'],
                             publisher: books[index]['publisher'],
-                            authorBook: books[index]['author_id'],
+                              authorBook: books[index]['author']['author_name']
+                            //authorBook: books[index]['author_id'],
                             // pdfUrl: books[index]['book_pdf'],
                           ),
                         ),

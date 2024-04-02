@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_practicum/component/my_button_Bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -13,30 +15,30 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp>{
-  final _nickname = TextEditingController();
+  final _username = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _gender = TextEditingController();
-  bool _validateNickname = false;
+  bool _validateusername = false;
   bool _validateEmail = false;
   bool _validatePassword = false;
   bool _validateGender = false;
 
   Future<void> _signUp() async {
     setState(() {
-      _validateNickname = _nickname.text.isEmpty;
+      _validateusername = _username.text.isEmpty;
       _validateEmail = _email.text.isEmpty;
       _validatePassword = _password.text.isEmpty;
       _validateGender = _gender.text.isEmpty;
     });
 
-    if (!_validateNickname && !_validateEmail && !_validatePassword && !_validateGender) {
+    if (!_validateusername && !_validateEmail && !_validatePassword && !_validateGender) {
       final url = Uri.parse('http://10.0.2.2:5000/auth/register');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          'username': _nickname.text,
+          'username': _username.text,
           'email': _email.text,
           'password': _password.text,
           'gender': _gender.text,
@@ -44,13 +46,32 @@ class _SignUpState extends State<SignUp>{
       );
 
       if (response.statusCode == 201) {
-        // Authentication successful
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MyButtomNavBar()),
-        );
-      }
-      else {
+        final responseData = jsonDecode(response.body);
+        print('Response Data: $responseData');
+        if (responseData.containsKey('access_token')) {
+          final accessToken = responseData['access_token'];
+
+          // Store the access token locally using SharedPreferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('access_token', accessToken);
+
+          // Retrieve the access token from SharedPreferences
+          final storedToken = prefs.getString('access_token');
+          print('Stored Access Token: $storedToken');
+
+          // Authentication successful
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text,)),
+          );
+        } else {
+          // Handle case where access_token is not present in the response
+          print('Access token not found in response');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Access token not found in response')),
+          );
+        }
+      } else {
         print("Authentication failed: ${response.statusCode}");
         // Authentication failed, show error message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -59,6 +80,7 @@ class _SignUpState extends State<SignUp>{
       }
     }
   }
+
 
 
   @override
@@ -90,10 +112,10 @@ class _SignUpState extends State<SignUp>{
               ),
               SizedBox(height: 8), // Add spacing between label and TextField
               TextField(
-                controller: _nickname, // Add this line to assign the controller
+                controller: _username, // Add this line to assign the controller
                 decoration: InputDecoration(
                   hintText: 'Enter Nickname',
-                  errorText: _validateNickname ? 'Nickname cannot be empty' : null,
+                  errorText: _validateusername ? 'Nickname cannot be empty' : null,
                 ),
               ),
               Padding(

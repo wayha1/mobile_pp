@@ -13,8 +13,6 @@ class SignIn extends StatefulWidget {
   State<SignIn> createState() => _SignInState();
 }
 
-
-
 class _SignInState extends State<SignIn> {
   final _username = TextEditingController();
   final _password = TextEditingController();
@@ -55,10 +53,6 @@ class _SignInState extends State<SignIn> {
         }),
       );
 
-
-
-
-
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         final accessToken = responseData['access_token'];
@@ -77,7 +71,7 @@ class _SignInState extends State<SignIn> {
         // Navigate to the next screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const MyButtomNavBar()),
+          MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text)),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

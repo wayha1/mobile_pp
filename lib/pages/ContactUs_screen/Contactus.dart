@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 class Contactus extends StatefulWidget {
-  const Contactus({Key? key});
+  final String username; // Add this line
+  const Contactus({Key? key, required this.username}) : super(key: key); // Modify the constructor
 
   @override
   _ContactusState createState() => _ContactusState();
@@ -10,8 +11,6 @@ class Contactus extends StatefulWidget {
 
 
 class _ContactusState extends State<Contactus>{
-
-  bool _isLoggedIn = false; // Variable to track authentication status
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class _ContactusState extends State<Contactus>{
                                   ),
                                   SizedBox(height: 8),
                                   Text(
-                                    'Anonymous',
+                                    widget.username,
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,

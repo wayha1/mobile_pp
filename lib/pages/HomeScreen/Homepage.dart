@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            MyButtomNavBar(),
+            MyButtomNavBar(username: 'username',),
             SignUp(),
             SignIn(),
             logo()

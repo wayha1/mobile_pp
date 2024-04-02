@@ -6,7 +6,9 @@ import 'package:project_practicum/pages/ContactUs_screen/Contactus.dart';
 import 'package:project_practicum/pages/Favorite_screen/MyFavorite.dart';
 
 class MyButtomNavBar extends StatefulWidget {
-  const MyButtomNavBar({Key? key}) : super(key: key);
+  final String username;
+
+  const MyButtomNavBar({Key? key, required this.username}) : super(key: key);
 
   @override
   State<MyButtomNavBar> createState() => _MyButtomNavBarState();
@@ -14,20 +16,25 @@ class MyButtomNavBar extends StatefulWidget {
 
 class _MyButtomNavBarState extends State<MyButtomNavBar> {
   int myCurrentIndex = 0;
-  List pages = const [
-    Account(accessToken: 'access_Token',),
-    // Carts(cartItems: [],),
-    CategoryBook(),
-    Contactus(),
-    MyFavorite(),
-  ];
+  late List pages;
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      Account(accessToken: 'access_Token'),
+      CategoryBook(),
+      Contactus(username: widget.username),
+      MyFavorite(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.green.shade100, // Set your desired background color
+          color: Colors.green.shade100,
           boxShadow: [
             BoxShadow(
               color: Colors.lightGreen.withOpacity(0.5),
@@ -38,7 +45,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
         ),
         child: ClipRRect(
           child: BottomNavigationBar(
-            backgroundColor: Colors.transparent, // Set to transparent
+            backgroundColor: Colors.transparent,
             selectedItemColor: Colors.green.shade400,
             unselectedItemColor: Colors.black,
             currentIndex: myCurrentIndex,
@@ -47,11 +54,9 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
                 myCurrentIndex = index;
               });
             },
-            items: const [
+            items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), label: "Home"),
-              // BottomNavigationBarItem(
-              //     icon: Icon(Icons.bar_chart_outlined), label: "my shelf"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.favorite), label: "Favorite"),
               BottomNavigationBarItem(
@@ -59,7 +64,6 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline), label: "Profile"),
             ],
-
           ),
         ),
       ),
@@ -67,3 +71,4 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
     );
   }
 }
+

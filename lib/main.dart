@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
         '/category': (context) => const CategoryBook(),
         '/myfavorite' : (context) => const MyFavorite(),
         // '/carts' : (context) => const Carts(),
-        '/contactus' : (context) => const Contactus(),
+        // '/contactus' : (context) => const Contactus(),
         // '/account' : (context) => const Account(accessToken: 'accessToken',),
         // '/signIn': (context) => const SignIn(),
         // '/signUp': (context) => const SignUp(),
-        '/mm': (context) => const MyButtomNavBar(),
+        // '/mm': (context) => const MyButtomNavBar(),
       },
     );
   }
