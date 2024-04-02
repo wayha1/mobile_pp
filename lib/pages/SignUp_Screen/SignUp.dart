@@ -47,41 +47,33 @@ class _SignUpState extends State<SignUp>{
 
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
-        print('Response Data: $responseData');
-        if (responseData.containsKey('access_token')) {
-          final accessToken = responseData['access_token'];
+        final accessToken = responseData['access_token'] ?? '';
 
-          // Store the access token locally using SharedPreferences
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('access_token', accessToken);
+        // Print the entire response body for debugging
+        print('Response Body: ${response.body}');
 
-          // Retrieve the access token from SharedPreferences
-          final storedToken = prefs.getString('access_token');
-          print('Stored Access Token: $storedToken');
+        // Store the access token locally using SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('access_token', accessToken);
 
-          // Authentication successful
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text,)),
-          );
-        } else {
-          // Handle case where access_token is not present in the response
-          print('Access token not found in response');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Access token not found in response')),
-          );
-        }
+        // Retrieve the access token from SharedPreferences
+        final storedToken = prefs.getString('access_token');
+        print('Stored Access Token: $storedToken');
+
+        // Navigate to the next screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text)),
+        );
       } else {
-        print("Authentication failed: ${response.statusCode}");
-        // Authentication failed, show error message
+        print("Registration failed: ${response.statusCode}");
+        // Registration failed, show error message
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Invalid email or password')),
+          SnackBar(content: Text('Registration failed')),
         );
       }
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
