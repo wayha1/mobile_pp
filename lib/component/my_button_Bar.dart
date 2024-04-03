@@ -24,7 +24,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
     pages = [
       Account(accessToken: 'access_Token'),
       CategoryBook(),
-      Contactus(username: widget.username),
+      Contactus(username: widget.username, accessToken: 'access_Token',),
       MyFavorite(),
     ];
   }

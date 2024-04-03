@@ -162,7 +162,7 @@ class _AccountState extends State<Account> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Search_Screen()),
+                        builder: (context) => const Search_Screen(accessToken: 'access_token',)),
                 );
               },
               icon: Icon(Icons.search)

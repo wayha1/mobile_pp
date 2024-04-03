@@ -1,16 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:project_practicum/pages/SignIn_Screen/SignIn.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 class Contactus extends StatefulWidget {
   final String username; // Add this line
-  const Contactus({Key? key, required this.username}) : super(key: key); // Modify the constructor
+  final String accessToken; // Add this line
+  const Contactus({Key? key, required this.username, required this.accessToken}) : super(key: key); // Modify the constructor
 
   @override
   _ContactusState createState() => _ContactusState();
 }
 
-
 class _ContactusState extends State<Contactus>{
+
+  Future<void> _logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString('access_token') ?? widget.accessToken;
+    try {
+      // Include JWT token in headers
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2:5000/auth/logout'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $accessToken', // Replace YOUR_JWT_TOKEN_HERE with the actual JWT token
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // If successful logout, navigate to SignIn screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SignIn()),
+        );
+      } else {
+        // Handle other status codes, if needed
+        print('Error logging out: ${response.statusCode}');
+      }
+    } catch(e) {
+      print('Error logging out: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,9 +161,7 @@ class _ContactusState extends State<Contactus>{
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextButton(
-                              onPressed: () {
-
-                              },
+                              onPressed: _logout,
                               child: Text(
                                 'Logout',
                                 style: TextStyle(
