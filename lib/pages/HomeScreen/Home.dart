@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart'; // Import carousel_slider package
 import 'package:project_practicum/pages/HomeScreen/Data.dart';
+import 'package:project_practicum/pages/HomeScreen/Search_Screen.dart';
 import 'package:project_practicum/pages/HomeScreen/information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -153,6 +154,16 @@ class _AccountState extends State<Account> {
               },
               icon: Icon(Icons.shopping_cart),
             ),
+          ),
+          IconButton(
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Search_Screen()),
+                );
+              },
+              icon: Icon(Icons.search)
           ),
         ],
       ),
