@@ -32,25 +32,33 @@ class _SignUpState extends State<SignUp>{
       _validateGender = _gender.text.isEmpty;
     });
 
-    if (!_validateusername && !_validateEmail && !_validatePassword && !_validateGender) {
+    if (!_validateusername &&
+        !_validateEmail &&
+        !_validatePassword &&
+        !_validateGender) {
+      final username = _username.text;
+      final email = _email.text;
+      final password = _password.text;
+      final gender = _gender.text;
+
       final url = Uri.parse('http://10.0.2.2:5000/auth/register');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          'username': _username.text,
-          'email': _email.text,
-          'password': _password.text,
-          'gender': _gender.text,
+          'username': username,
+          'email': email,
+          'password': password,
+          'gender': gender,
         }),
       );
 
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
-        final accessToken = responseData['access_token'] ?? '';
+        final accessToken = responseData['access_token'];
 
         // Print the entire response body for debugging
-        print('Response Body: ${response.body}');
+        //print('Response Body: ${response.body}');
 
         // Store the access token locally using SharedPreferences
         final prefs = await SharedPreferences.getInstance();
@@ -66,14 +74,14 @@ class _SignUpState extends State<SignUp>{
           MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text)),
         );
       } else {
-        print("Registration failed: ${response.statusCode}");
-        // Registration failed, show error message
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration failed')),
+          SnackBar(content: Text('Failed to register. Please try again later.')),
         );
       }
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
