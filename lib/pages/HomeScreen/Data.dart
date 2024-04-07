@@ -168,47 +168,7 @@ class _DataState extends State<Data> {
                                 MaterialStateProperty.all(
                                     Colors.green),
                               ),
-                              onPressed: () async {
-                                // Get access token
-                                final accessToken = await _getAccessToken();
-
-                                if (accessToken != null) {
-                                  // Prepare the data to be sent
-                                  Map<String, dynamic> postData = {
-                                    'title': widget.titleBook,
-                                    'imageUrl': widget.imageUrl,
-                                  };
-
-                                  // Send POST request with access token in headers
-                                  var response = await http.post(
-                                    Uri.parse('http://10.0.2.2:5000/events/cart'),
-                                    headers: <String, String>{
-                                      'Content-Type': 'application/json; charset=UTF-8',
-                                      'Authorization': 'Bearer $accessToken',
-                                    },
-                                    body: jsonEncode(postData),
-                                  );
-
-                                  // Check response status code
-                                  if (response.statusCode == 201) {
-                                    // Print response from the server
-                                    print('Added to cart: ${response.body}');
-
-                                    // Update the UI or perform any other actions
-                                    setState(() {
-                                      cartItems.add(postData); // Add data to the local cartItems list
-                                    });
-                                  } else {
-                                    // If the request was not successful, handle the error
-                                    print('Failed to add to cart: ${response.statusCode}');
-                                    // You can show an error message or perform other actions here
-                                  }
-                                } else {
-                                  // Handle case where access token is null (user not signed in)
-                                  print('User not signed in');
-                                  // You can show an error message or perform other actions here
-                                }
-                              },
+                              onPressed: () async {},
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
