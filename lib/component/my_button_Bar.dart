@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_practicum/pages/HomeScreen/Home.dart';
 import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
-import 'package:project_practicum/pages/CategoryBook_Screen/Categorybook.dart';
 import 'package:project_practicum/pages/ContactUs_screen/Contactus.dart';
 import 'package:project_practicum/pages/Favorite_screen/MyFavorite.dart';
+
+import '../pages/AuthorBook_Screen/Author.dart';
 
 class MyButtomNavBar extends StatefulWidget {
   final String username;
@@ -23,7 +24,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
     super.initState();
     pages = [
       Account(accessToken: 'access_Token'),
-      CategoryBook(),
+      AuthorBook(accessToken: 'access_Token',),
       Contactus(username: widget.username, accessToken: 'access_Token',),
       MyFavorite(),
     ];

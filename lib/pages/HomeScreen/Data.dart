@@ -30,7 +30,6 @@ class Data extends StatefulWidget {
 
 class _DataState extends State<Data> {
   bool showMore = false;
-  List<Map<String, dynamic>> cartItems = [];
 
   // Function to retrieve the access token from SharedPreferences
   Future<String?> _getAccessToken() async {
@@ -236,7 +235,6 @@ class _DataState extends State<Data> {
                       ],
                     ),
                   ),
-
                 ],
               ),
             ),
