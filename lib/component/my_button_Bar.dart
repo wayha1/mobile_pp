@@ -59,11 +59,11 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: "Favorite"),
+                  icon: Icon(Icons.favorite), label: "Author"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: "Setting"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline), label: "Profile"),
+                  icon: Icon(Icons.person_outline), label: "Favorite"),
             ],
           ),
         ),

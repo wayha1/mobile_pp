@@ -56,13 +56,18 @@ class _SignInState extends State<SignIn> {
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         final accessToken = responseData['access_token'];
+        final userId = responseData['user_id']; // Extracting user ID from response
 
         // Print the entire response body for debugging
         print('Response Body: ${response.body}');
 
+        // Print user ID and username
+        print('User ID: $userId');
+
         // Store the access token locally using SharedPreferences
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', accessToken);
+        await prefs.setInt('user_id', userId);
 
         // Retrieve the access token from SharedPreferences
         final storedToken = prefs.getString('access_token');

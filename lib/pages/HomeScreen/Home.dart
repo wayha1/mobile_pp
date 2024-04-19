@@ -315,6 +315,7 @@ class _AccountState extends State<Account> {
                                         description: comicBooks[index]['description'] ?? '',
                                         publisher: comicBooks[index]['publisher'] ?? '',
                                         authorBook: comicBooks[index]['author']['author_name'] ?? '',
+                                        bookId: comicBooks[index]['id'], // Pass book_id here
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),
@@ -467,6 +468,7 @@ class _AccountState extends State<Account> {
                                         description: comdyBooks[index]['description'] ?? '',
                                         publisher: comdyBooks[index]['publisher'] ?? '',
                                         authorBook: comdyBooks[index]['author']['author_name'] ?? '',
+                                        bookId: comicBooks[index]['id'], // Pass book_id here
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),

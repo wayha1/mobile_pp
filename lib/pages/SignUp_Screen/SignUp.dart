@@ -25,6 +25,7 @@ class _SignUpState extends State<SignUp>{
   bool _validateGender = false;
 
   Future<void> _signUp() async {
+    // Check if form fields are empty
     setState(() {
       _validateusername = _username.text.isEmpty;
       _validateEmail = _email.text.isEmpty;
@@ -36,11 +37,13 @@ class _SignUpState extends State<SignUp>{
         !_validateEmail &&
         !_validatePassword &&
         !_validateGender) {
+      // Extract form field values
       final username = _username.text;
       final email = _email.text;
       final password = _password.text;
       final gender = _gender.text;
 
+      // Make POST request to register user
       final url = Uri.parse('http://10.0.2.2:5000/auth/register');
       final response = await http.post(
         url,
@@ -53,33 +56,40 @@ class _SignUpState extends State<SignUp>{
         }),
       );
 
-      if (response.statusCode == 201) {
+      // Check if registration was successful (status code 200)
+      if (response.statusCode == 200) {
+        // Parse the response body
         final responseData = jsonDecode(response.body);
-        final accessToken = responseData['access_token'];
 
-        // Print the entire response body for debugging
-        //print('Response Body: ${response.body}');
+        // Extract access token and user information
+        final accessToken = responseData['access_token'];
+        final user = responseData['user'];
+
+        // Extract user ID from user information
+        final userId = user['id'];
+
+        // Print user ID for debugging
+        print('User ID: $userId');
 
         // Store the access token locally using SharedPreferences
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', accessToken);
+        await prefs.setInt('user_id', userId);
 
-        // Retrieve the access token from SharedPreferences
-        final storedToken = prefs.getString('access_token');
-        print('Stored Access Token: $storedToken');
-
-        // Navigate to the next screen
+        // Navigate to the next screen (assuming MyButtomNavBar handles user ID)
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text)),
         );
       } else {
+        // Registration failed, show error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to register. Please try again later.')),
         );
       }
     }
   }
+
 
 
 

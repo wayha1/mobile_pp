@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
+import 'package:project_practicum/pages/Favorite_screen/MyFavorite.dart';
 import 'package:project_practicum/pages/HomeScreen/Read.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ class Data extends StatefulWidget {
   final String description;
   final String publisher;
   final String authorBook;
+  final int bookId; // Add bookId parameter to accept book_id
 
   const Data({
     required this.imageUrl,
@@ -22,6 +24,7 @@ class Data extends StatefulWidget {
     required this.description,
     required this.publisher,
     required this.authorBook,
+    required this.bookId, // Include bookId parameter
   });
 
   @override
@@ -35,6 +38,58 @@ class _DataState extends State<Data> {
   Future<String?> _getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('access_token');
+  }
+
+  // Function to send data to server
+  // Function to send data to server
+  Future<void> addToFavorites() async {
+    try {
+      // Retrieve user_id from SharedPreferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final int? userId = prefs.getInt('user_id');
+
+      if (userId == null) {
+        // User is not signed in, handle the case accordingly
+        print('User ID is null. Cannot add to favorites.');
+        return;
+      }
+
+      // Access the book_id passed to the Data screen
+      final int bookId = widget.bookId;
+
+      // Prepare the data to send
+      final Map<String, dynamic> data = {
+        "user_id": userId,
+        "book_id": bookId,
+      };
+
+      // Print the data
+      print('Data to be sent to server: $data');
+
+      // Convert data to JSON
+      final jsonData = jsonEncode(data);
+
+      // Send POST request
+      final response = await http.post(
+        Uri.parse('http://10.0.2.2:5000/events/userbook'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonData,
+      );
+
+      // Check if request was successful
+      if (response.statusCode == 200) {
+        // Data successfully added to favorites
+        print('Data added to favorites successfully');
+      } else {
+        // Error occurred
+        print('Failed to add data to favorites. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle any errors
+      print('Error: $error');
+    }
   }
 
   @override
@@ -140,7 +195,7 @@ class _DataState extends State<Data> {
                                 margin: EdgeInsets.only(left: 8),
                                 child: TextButton(
                                   onPressed: () {
-                                    // Handle add to favorites action
+                                    addToFavorites();
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
@@ -181,6 +236,19 @@ class _DataState extends State<Data> {
                             ),
                           ),
                         ),
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          child: Text(
+                            'Book Id: ${widget.bookId}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                        // display publisher
+                        SizedBox(height: 8),
                         Container(
                           margin: EdgeInsets.only(top: 20),
                           child: Text(
