@@ -44,7 +44,7 @@ class _SignUpState extends State<SignUp>{
       final gender = _gender.text;
 
       // Make POST request to register user
-      final url = Uri.parse('http://10.0.2.2:5000/auth/register');
+      final url = Uri.parse('http://10.0.2.2:5000/authorization/register');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},

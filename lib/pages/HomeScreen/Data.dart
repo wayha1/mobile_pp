@@ -15,6 +15,12 @@ class Data extends StatefulWidget {
   final String description;
   final String publisher;
   final String authorBook;
+  final String authorDecs;
+  final int authorID;
+  final String authorGender;
+  final String authorImage;
+  final int CategoryID;
+  final String CategoryName;
   final int bookId; // Add bookId parameter to accept book_id
 
   const Data({
@@ -24,7 +30,13 @@ class Data extends StatefulWidget {
     required this.description,
     required this.publisher,
     required this.authorBook,
-    required this.bookId, // Include bookId parameter
+    required this.authorDecs,
+    required this.bookId,
+    required this.authorID,
+    required this.authorGender,
+    required this.authorImage,
+    required this.CategoryID,
+    required this.CategoryName, // Include bookId parameter
   });
 
   @override
@@ -40,7 +52,6 @@ class _DataState extends State<Data> {
     return prefs.getString('access_token');
   }
 
-  // Function to send data to server
   // Function to send data to server
   Future<void> addToFavorites() async {
     try {
@@ -92,6 +103,92 @@ class _DataState extends State<Data> {
       print('Error: $error');
     }
   }
+
+  // Function to post Carts data
+  Future<void> addToCarts() async {
+    try {
+      // Retrieve user_id from SharedPreferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final int? userId = prefs.getInt('user_id');
+
+      if (userId == null) {
+        // User is not signed in, handle the case accordingly
+        print('User ID is null. Cannot add to favorites.');
+        return;
+      }
+
+      // Access the book_id passed to the Data screen
+      // final int bookId = widget.bookId;
+      // final String bookTitle = widget.titleBook;
+
+      // Prepare the data to send
+      // final Map<String, dynamic> data = {
+      //   "user_id": userId,
+      //   "book_id": bookId,
+      //   "title": bookTitle
+      // };
+
+      final Map<String, dynamic> data = {
+        "id": userId, // This can be any unique identifier for the cart item
+        "user_id": {
+          "id": userId,
+          "username": "string", // Replace "string" with actual username
+          "email": "string", // Replace "string" with actual email
+          "password_hash": "string", // Replace "string" with actual password hash
+          "gender": "string", // Replace "string" with actual gender
+          "role": "string" // Replace "string" with actual role
+        },
+        "book": {
+          "id": widget.bookId,
+          "title": widget.titleBook,
+          "description": widget.description,
+          "price": widget.priceBook,
+          "publisher": widget.publisher,
+          "category": {
+            "id": widget.CategoryID,
+            "name": widget.CategoryName
+          },
+          "author": {
+            "id": widget.authorID,
+            "author_name": widget.authorBook,
+            "author_decs": widget.authorDecs,
+            "gender": widget.authorGender,
+            "author_image": widget.authorImage
+          },
+          "book_image": widget.imageUrl,
+          "book_pdf": "String"
+        },
+        "quantity": 0 // Quantity of the book, adjust as necessary
+      };
+
+
+
+      // Print the data
+      print('Data to be sent to server: $data');
+
+      // Convert data to JSON
+      final jsonData = jsonEncode(data);
+
+      // Send POST request
+      final response = await http.post(
+        Uri.parse('http://10.0.2.2:5000/events/cart'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonData,
+      );
+
+      // Check if request was successful
+      if (response.statusCode == 200) {
+        // Data successfully added to favorites
+        print('Data added to favorites successfully');
+      }
+    } catch (error) {
+      // Handle any errors
+      print('Error: $error');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +320,9 @@ class _DataState extends State<Data> {
                                 MaterialStateProperty.all(
                                     Colors.green),
                               ),
-                              onPressed: () async {},
+                              onPressed: () {
+                                addToCarts();
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Text(

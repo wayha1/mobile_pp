@@ -43,7 +43,7 @@ class _SignInState extends State<SignIn> {
     });
 
     if (!_validateUsername && !_validatePassword) {
-      final url = Uri.parse('http://10.0.2.2:5000/auth/login');
+      final url = Uri.parse('http://10.0.2.2:5000/authorization/login');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
