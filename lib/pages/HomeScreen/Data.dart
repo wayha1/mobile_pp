@@ -54,11 +54,19 @@ class _DataState extends State<Data> {
     return prefs.getString('access_token');
   }
 
-  // Function to send data to server
   Future<void> addToFavorites() async {
     try {
-      // Retrieve user_id from SharedPreferences
+      // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? accessToken = prefs.getString('access_token');
+
+      if (accessToken == null) {
+        // Access token not found, handle the case accordingly
+        print('Access token not found. Cannot add to favorite.');
+        return;
+      }
+
+      // Retrieve user_id from SharedPreferences
       final int? userId = prefs.getInt('user_id');
 
       if (userId == null) {
@@ -67,15 +75,11 @@ class _DataState extends State<Data> {
         return;
       }
 
-      // Access the book_id passed to the Data screen
-      final int bookId = widget.bookId;
-
       // Prepare the data to send
       final Map<String, dynamic> data = {
         "user_id": userId,
-        "book_id": bookId,
+        "book_id": widget.bookId,
       };
-
 
       // Print the data
       print('Data to be sent to server: $data');
@@ -88,6 +92,7 @@ class _DataState extends State<Data> {
         Uri.parse('http://10.0.2.2:5000/events/userbook'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $accessToken'
         },
         body: jsonData,
       );
@@ -105,6 +110,7 @@ class _DataState extends State<Data> {
       print('Error: $error');
     }
   }
+
 
   // Function to post Carts data
   Future<void> addToCarts() async {
