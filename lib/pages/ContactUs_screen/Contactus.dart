@@ -21,7 +21,7 @@ class _ContactusState extends State<Contactus>{
     try {
       // Include JWT token in headers
       var response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/auth/logout'),
+        Uri.parse('http://10.0.2.2:5000/authorization/logout'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $accessToken', // Replace YOUR_JWT_TOKEN_HERE with the actual JWT token
