@@ -19,6 +19,7 @@ class Data extends StatefulWidget {
   final int authorID;
   final String authorGender;
   final String authorImage;
+  final String bookPdf;
   final int CategoryID;
   final String CategoryName;
   final int bookId; // Add bookId parameter to accept book_id
@@ -36,7 +37,8 @@ class Data extends StatefulWidget {
     required this.authorGender,
     required this.authorImage,
     required this.CategoryID,
-    required this.CategoryName, // Include bookId parameter
+    required this.CategoryName,
+    required this.bookPdf, // Include bookId parameter
   });
 
   @override
@@ -117,17 +119,6 @@ class _DataState extends State<Data> {
         return;
       }
 
-      // Access the book_id passed to the Data screen
-      // final int bookId = widget.bookId;
-      // final String bookTitle = widget.titleBook;
-
-      // Prepare the data to send
-      // final Map<String, dynamic> data = {
-      //   "user_id": userId,
-      //   "book_id": bookId,
-      //   "title": bookTitle
-      // };
-
       final Map<String, dynamic> data = {
         "id": userId, // This can be any unique identifier for the cart item
         "user_id": {
@@ -156,7 +147,7 @@ class _DataState extends State<Data> {
             "author_image": widget.authorImage
           },
           "book_image": widget.imageUrl,
-          "book_pdf": "String"
+          "book_pdf": widget.bookPdf
         },
         "quantity": 0 // Quantity of the book, adjust as necessary
       };

@@ -59,7 +59,7 @@ class _AuthorDataState extends State<AuthorData> {
                   ),
 
                   Container(
-                    margin: EdgeInsets.only(top: 8),
+                    margin: EdgeInsets.only(top: 20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -68,57 +68,60 @@ class _AuthorDataState extends State<AuthorData> {
                       ),
                     ),
                     padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Author's Name: ${widget.authorName}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Author's Name: ${widget.authorName}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8), // Add some space between the two Text widgets
-                        Text(
-                          "Author's Gender: ${widget.authorGender}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(height: 8), // Add some space between the two Text widgets
+                          Text(
+                            "Author's Gender: ${widget.authorGender}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8), // Add some space between the two Text widgets
-                        Text(
-                          "Author's Id: ${widget.authorId}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(height: 8), // Add some space between the two Text widgets
+                          Text(
+                            "Author's Id: ${widget.authorId}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        // Show description with at most 3 lines
-                        Text(
-                          widget.authorDesc,
-                          maxLines: showMore ? null : 3,
-                          overflow: showMore
-                              ? TextOverflow.visible
-                              : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
-                        ),
+                          SizedBox(height: 8),
+                          // Show description with at most 3 lines
+                          Text(
+                            widget.authorDesc,
+                            maxLines: showMore ? null : 3,
+                            overflow: showMore
+                                ? TextOverflow.visible
+                                : TextOverflow.ellipsis, // Use TextOverflow.visible when showMore is true
+                          ),
 
-                        SizedBox(height: 8),
-                        // Button to toggle between showing more or less text
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              showMore = !showMore;
-                            });
-                          },
-                          child: Text(
-                            showMore ? 'Show Less' : 'Show More',
-                            style: TextStyle(color: Colors.blue),
+                          SizedBox(height: 8),
+                          // Button to toggle between showing more or less text
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                showMore = !showMore;
+                              });
+                            },
+                            child: Text(
+                              showMore ? 'Show Less' : 'Show More',
+                              style: TextStyle(color: Colors.blue),
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 16),
-                      ],
+                          SizedBox(height: 16),
+                        ],
+                      ),
                     ),
 
                   ),

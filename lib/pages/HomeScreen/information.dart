@@ -52,6 +52,7 @@ class Information extends StatelessWidget {
                             authorImage: books[index]['author']['author_image'],
                             CategoryID: books[index]['category']['id'],
                             CategoryName: books[index]['category']['name'],
+                            bookPdf: books[index]['book_pdf']
                             //authorBook: books[index]['author_id'],
                             // pdfUrl: books[index]['book_pdf'],
                           ),

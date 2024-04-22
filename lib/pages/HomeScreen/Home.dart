@@ -321,7 +321,8 @@ class _AccountState extends State<Account> {
                                         authorGender: comicBooks[index]['author']['gender'],
                                         authorImage: comicBooks[index]['author']['author_image'],
                                         CategoryID: comicBooks[index]['category']['id'],
-                                        CategoryName: comicBooks[index]['category']['name'], // Pass book_id here
+                                        CategoryName: comicBooks[index]['category']['name'],
+                                        bookPdf: comicBooks[index]['book_pdf'], // Pass book_id here
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),
@@ -480,7 +481,8 @@ class _AccountState extends State<Account> {
                                         authorGender: comdyBooks[index]['author']['gender'],
                                         authorImage: comdyBooks[index]['author']['author_image'],
                                         CategoryID: comdyBooks[index]['category']['id'],
-                                        CategoryName: comdyBooks[index]['category']['name'], // Pass book_id here
+                                        CategoryName: comdyBooks[index]['category']['name'],
+                                        bookPdf: comdyBooks[index]['book_pdf'], // Pass book_id here
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),
