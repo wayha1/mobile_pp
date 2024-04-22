@@ -109,8 +109,17 @@ class _DataState extends State<Data> {
   // Function to post Carts data
   Future<void> addToCarts() async {
     try {
-      // Retrieve user_id from SharedPreferences
+      // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? accessToken = prefs.getString('access_token');
+
+      if (accessToken == null) {
+        // Access token not found, handle the case accordingly
+        print('Access token not found. Cannot add to cart.');
+        return;
+      }
+
+      // Retrieve user_id from SharedPreferences
       final int? userId = prefs.getInt('user_id');
 
       if (userId == null) {
@@ -119,40 +128,12 @@ class _DataState extends State<Data> {
         return;
       }
 
+      // Prepare the data to send
       final Map<String, dynamic> data = {
-        "id": userId, // This can be any unique identifier for the cart item
-        "user_id": {
-          "id": userId,
-          "username": "string", // Replace "string" with actual username
-          "email": "string", // Replace "string" with actual email
-          "password_hash": "string", // Replace "string" with actual password hash
-          "gender": "string", // Replace "string" with actual gender
-          "role": "string" // Replace "string" with actual role
-        },
-        "book": {
-          "id": widget.bookId,
-          "title": widget.titleBook,
-          "description": widget.description,
-          "price": widget.priceBook,
-          "publisher": widget.publisher,
-          "category": {
-            "id": widget.CategoryID,
-            "name": widget.CategoryName
-          },
-          "author": {
-            "id": widget.authorID,
-            "author_name": widget.authorBook,
-            "author_decs": widget.authorDecs,
-            "gender": widget.authorGender,
-            "author_image": widget.authorImage
-          },
-          "book_image": widget.imageUrl,
-          "book_pdf": widget.bookPdf
-        },
-        "quantity": 0 // Quantity of the book, adjust as necessary
+        "user_id": userId,
+        "book_id": widget.bookId,
+        "quantity": 0,
       };
-
-
 
       // Print the data
       print('Data to be sent to server: $data');
@@ -165,21 +146,24 @@ class _DataState extends State<Data> {
         Uri.parse('http://10.0.2.2:5000/events/cart'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $accessToken'
         },
         body: jsonData,
       );
 
       // Check if request was successful
       if (response.statusCode == 200) {
-        // Data successfully added to favorites
-        print('Data added to favorites successfully');
+        // Data successfully added to cart
+        print('Data added to Cart successfully');
+      } else {
+        // Error occurred
+        print('Failed to add data to Cart. Status code: ${response.statusCode}');
       }
     } catch (error) {
       // Handle any errors
       print('Error: $error');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

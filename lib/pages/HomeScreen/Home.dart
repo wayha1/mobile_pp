@@ -150,7 +150,9 @@ class _AccountState extends State<Account> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Carts(),
+                    builder: (context) => const Carts(
+                      accessToken: 'access_token',
+                    ),
                   ),
                 );
               },
@@ -322,7 +324,7 @@ class _AccountState extends State<Account> {
                                         authorImage: comicBooks[index]['author']['author_image'],
                                         CategoryID: comicBooks[index]['category']['id'],
                                         CategoryName: comicBooks[index]['category']['name'],
-                                        bookPdf: comicBooks[index]['book_pdf'], // Pass book_id here
+                                        bookPdf: comicBooks[index]['book_pdf'],
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),
@@ -482,7 +484,7 @@ class _AccountState extends State<Account> {
                                         authorImage: comdyBooks[index]['author']['author_image'],
                                         CategoryID: comdyBooks[index]['category']['id'],
                                         CategoryName: comdyBooks[index]['category']['name'],
-                                        bookPdf: comdyBooks[index]['book_pdf'], // Pass book_id here
+                                        bookPdf: comdyBooks[index]['book_pdf'],
                                         // pdfUrl: comdyBooks[index]['book_pdf'],
                                       ),
                                     ),
