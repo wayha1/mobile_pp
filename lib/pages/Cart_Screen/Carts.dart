@@ -81,7 +81,22 @@ class _CartsState extends State<Carts> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart Items'),
+        backgroundColor: Colors.green.shade300,
+        leading: Center(
+          child: Image.asset(
+            'lib/image/logo.png',
+            width: 50,
+            height: 50,
+            color: Colors.black,
+          ),
+        ),
+        title: Text(
+          'Carts',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.black54,
+          ),
+        ),
       ),
       body: cartItems.isEmpty
           ? Center(

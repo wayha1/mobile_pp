@@ -112,13 +112,6 @@ class _AccountState extends State<Account> {
 // Filter category 2 books
     final comdyBooks = informationProvider1.where((book) => book['category']['id'] == 2).toList();
 
-
-    List<Map<String, dynamic>> cartItems = [];
-
-
-
-
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
@@ -138,22 +131,22 @@ class _AccountState extends State<Account> {
           ),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Carts(
-                      accessToken: 'access_token',
-                    ),
-                  ),
-                );
-              },
-              icon: Icon(Icons.shopping_cart),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 16.0),
+          //   child: IconButton(
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => const Carts(
+          //             accessToken: 'access_token',
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //     icon: Icon(Icons.shopping_cart),
+          //   ),
+          // ),
           IconButton(
               onPressed: (){
                 Navigator.push(

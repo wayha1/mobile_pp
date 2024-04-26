@@ -24,6 +24,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
     super.initState();
     pages = [
       Account(accessToken: 'access_Token'),
+      Carts(accessToken: 'access_token',),
       AuthorBook(accessToken: 'access_Token',),
       Contactus(username: widget.username, accessToken: 'access_Token',),
       MyFavorite(),
@@ -58,6 +59,8 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart), label: "Cart"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.favorite), label: "Author"),
               BottomNavigationBarItem(
