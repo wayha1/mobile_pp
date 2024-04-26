@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
 import 'package:project_practicum/pages/Favorite_screen/MyFavorite.dart';
 import 'package:project_practicum/pages/HomeScreen/Read.dart';
@@ -47,6 +48,8 @@ class Data extends StatefulWidget {
 
 class _DataState extends State<Data> {
   bool showMore = false;
+  bool addedToCart = false; // State variable to track whether item is added to cart
+  bool addToFavorite = false;
 
   // Function to retrieve the access token from SharedPreferences
   Future<String?> _getAccessToken() async {
@@ -56,6 +59,12 @@ class _DataState extends State<Data> {
 
   Future<void> addToFavorites() async {
     try {
+      // Check if item has already been added to cart
+      if (addToFavorite) {
+        Fluttertoast.showToast(msg: 'Item already added to cart');
+        return;
+      }
+
       // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? accessToken = prefs.getString('access_token');
@@ -115,6 +124,12 @@ class _DataState extends State<Data> {
   // Function to post Carts data
   Future<void> addToCarts() async {
     try {
+      // Check if item has already been added to cart
+      if (addedToCart) {
+        Fluttertoast.showToast(msg: 'Item already added to cart');
+        return;
+      }
+
       // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? accessToken = prefs.getString('access_token');

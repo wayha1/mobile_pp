@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyFavorite extends StatefulWidget {
@@ -10,7 +11,7 @@ class MyFavorite extends StatefulWidget {
 }
 
 class _MyFavoriteState extends State<MyFavorite> {
-  late String responseData = '';
+  late List<dynamic> responseData = []; // Declare responseData as a list
 
   @override
   void initState() {
@@ -39,7 +40,8 @@ class _MyFavoriteState extends State<MyFavorite> {
 
       if (response.statusCode == 200) {
         setState(() {
-          responseData = response.body;
+          // Parse the response body into a list of maps
+          responseData = jsonDecode(response.body);
         });
       } else {
         throw Exception('Failed to load data');
@@ -49,20 +51,60 @@ class _MyFavoriteState extends State<MyFavorite> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    // Inside the build method
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade200,
         automaticallyImplyLeading: false,
         title: Text('Favorite Screen'),
       ),
-      body: Center(
-        child: responseData.isNotEmpty
-            ? Text(responseData)
-            : CircularProgressIndicator(),
+      body: responseData.isEmpty
+          ? Center(
+        child: Text(
+          'No favorite items found.',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      )
+          : ListView.builder(
+        itemCount: responseData.length,
+        itemBuilder: (BuildContext context, int index) {
+          final item = responseData[index];
+          final bookTitle = item["book"]["title"];
+          final bookImage = item["book"]["book_image"];
+          return Container(
+            margin: EdgeInsets.only(left: 10, top: 10),
+            child: Row(
+              children: [
+                Image.network(
+                  bookImage,
+                  width: 150, // Adjust width as needed
+                  height: 150, // Adjust height as needed
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Title:\n ${bookTitle}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    // Add delete functionality here
+                  },
+                  icon: Icon(Icons.delete),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
