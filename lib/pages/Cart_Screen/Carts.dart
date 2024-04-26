@@ -8,7 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Carts extends StatefulWidget {
   final String accessToken;
-  const Carts({required this.accessToken, Key? key}) : super(key: key);
+  const Carts({
+    required this.accessToken, Key? key,}) : super(key: key);
 
   @override
   State<Carts> createState() => _CartsState();
@@ -28,6 +29,7 @@ class _CartsState extends State<Carts> {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final accessToken = prefs.getString('access_token') ?? widget.accessToken;
+
 
       // Make API call to fetch cart items
       final response = await http.get(

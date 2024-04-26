@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Payment extends StatefulWidget {
   final String accessToken;
@@ -10,6 +11,19 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
+
+
+  Future<void> paymentCarts() async {
+    try{
+      // Retrieve access token from SharedPreferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? accessToken = prefs.getString('access_token');
+
+    }catch (error) {
+      // Handle any errors
+      print('Error: $error');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +51,9 @@ class _PaymentState extends State<Payment> {
                 Container(
                   margin: EdgeInsets.only(right: 30, bottom: 10),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      paymentCarts();
+                    },
                     child: Container(
                       margin: EdgeInsets.only(left: 10),
                       child: Text(

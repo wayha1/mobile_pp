@@ -115,12 +115,7 @@ class _AccountState extends State<Account> {
 
     List<Map<String, dynamic>> cartItems = [];
 
-    // Function to add item to the cart
-    void addToCart(Map<String, dynamic> item) {
-      setState(() {
-        cartItems.add(item); // Add the item to the cartItems list
-      });
-    }
+
 
 
 
