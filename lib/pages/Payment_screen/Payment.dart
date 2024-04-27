@@ -28,6 +28,7 @@ class _PaymentState extends State<Payment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green.shade200,
         title: Text('Cancel', style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.blue.shade500,

@@ -58,19 +58,43 @@ class _MyFavoriteState extends State<MyFavorite> {
       appBar: AppBar(
         backgroundColor: Colors.green.shade200,
         automaticallyImplyLeading: false,
+        leading: Center(
+          child: Image.asset(
+            'lib/image/logo.png',
+            width: 50,
+            height: 50,
+            color: Colors.black,
+          ),
+        ),
         title: Text('Favorite Screen'),
       ),
       body: responseData.isEmpty
           ? Center(
-        child: Text(
-          'No favorite items found.',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+        child: Container(
+          margin: EdgeInsets.all(20),
+          child: Stack(
+            children: [
+              // Image
+              Image.asset(
+                'assets/emptybox.png', // Replace with your image path
+                width: 250, // Adjust width as needed
+                height: 250, // Adjust height as needed
+              ),
+              SizedBox(height: 20,),
+              Container(
+                margin: EdgeInsets.only(bottom: 20, left: 30),
+                child: Text(
+                  'No favorite items found.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      )
-          : ListView.builder(
+      ) : ListView.builder(
         itemCount: responseData.length,
         itemBuilder: (BuildContext context, int index) {
           final item = responseData[index];

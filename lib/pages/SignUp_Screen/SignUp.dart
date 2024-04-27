@@ -76,10 +76,26 @@ class _SignUpState extends State<SignUp>{
         await prefs.setString('access_token', accessToken);
         await prefs.setInt('user_id', userId);
 
+        // Show a snackbar to indicate successful signUp
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Row(
+            children: [
+              Expanded(child: Text('Sign-up successful'),
+              ),
+              Icon(Icons.check_circle_outline, color: Colors.white,),
+            ],
+          ),
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          behavior: SnackBarBehavior.floating,),
+        );
+
         // Navigate to the next screen (assuming MyButtomNavBar handles user ID)
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text)),
+          MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text, password: _password.text,)),
         );
       } else {
         // Registration failed, show error message

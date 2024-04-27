@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_practicum/component/my_button_Bar.dart';
@@ -18,23 +19,11 @@ class _SignInState extends State<SignIn> {
   final _password = TextEditingController();
   bool _validateUsername = false;
   bool _validatePassword = false;
-  //late String accessToken;
 
   @override
   void initState() {
     super.initState();
-    // Execute the delayed initialization of SharedPreferences
-    // Future.delayed(Duration.zero, () {
-    //   _initSharedPreferences();
-    // });
   }
-
-  // Future<void> _initSharedPreferences() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final storedToken = prefs.getString('access_token');
-  //   print('Stored Access Token: $storedToken');
-  // }
-
 
   Future<void> _signIn() async {
     setState(() {
@@ -72,15 +61,46 @@ class _SignInState extends State<SignIn> {
         // Retrieve the access token from SharedPreferences
         final storedToken = prefs.getString('access_token');
         print('Stored Access Token: $storedToken');
+        
+        // Show a snackbar to indicate successful signIn
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Row(
+            children: [
+              Expanded(child: Text('Sign-in successful!'),
+              ),
+              Icon(Icons.check_circle_outline , color: Colors.white),
+            ],
+          ),
+          backgroundColor: Colors.green.shade500,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
 
         // Navigate to the next screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text)),
+          MaterialPageRoute(builder: (context) => MyButtomNavBar(username: _username.text, password: _password.text)),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Invalid email or password')),
+          SnackBar(
+            content: Row(
+              children: [
+                Expanded(
+                  child: Text('wrong email or password'),
+                ),
+                Icon(Icons.warning_amber, color: Colors.white), // Icon on the right side
+              ],
+            ),
+            backgroundColor: Colors.red.shade500, // Custom background color
+            shape: RoundedRectangleBorder( // Custom border shape
+              borderRadius: BorderRadius.circular(50), // Adjust the radius as needed
+            ),
+            behavior: SnackBarBehavior.floating, // Make the snackbar narrow
+          ),
         );
       }
     }

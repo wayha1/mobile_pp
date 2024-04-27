@@ -49,7 +49,15 @@ class _AuthorBookState extends State<AuthorBook> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
-        automaticallyImplyLeading: false, // Add this line
+        automaticallyImplyLeading: false,
+        leading: Center(
+          child: Image.asset(
+            'lib/image/logo.png',
+            width: 50,
+            height: 50,
+            color: Colors.black,
+          ),
+        ),// Add this line
         title: const Text(
           "Author's List",
           style: TextStyle(

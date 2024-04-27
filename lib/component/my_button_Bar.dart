@@ -8,8 +8,9 @@ import '../pages/AuthorBook_Screen/Author.dart';
 
 class MyButtomNavBar extends StatefulWidget {
   final String username;
+  final String password;
 
-  const MyButtomNavBar({Key? key, required this.username}) : super(key: key);
+  const MyButtomNavBar({Key? key, required this.username, required this.password}) : super(key: key);
 
   @override
   State<MyButtomNavBar> createState() => _MyButtomNavBarState();
@@ -26,7 +27,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
       Account(accessToken: 'access_Token'),
       Carts(accessToken: 'access_token',),
       AuthorBook(accessToken: 'access_Token',),
-      Contactus(username: widget.username, accessToken: 'access_Token',),
+      Contactus(username: widget.username, accessToken: 'access_Token', password: widget.password,),
       MyFavorite(),
     ];
   }

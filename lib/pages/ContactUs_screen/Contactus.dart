@@ -6,8 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Contactus extends StatefulWidget {
   final String username; // Add this line
+  final String password;
   final String accessToken; // Add this line
-  const Contactus({Key? key, required this.username, required this.accessToken}) : super(key: key); // Modify the constructor
+  const Contactus({Key? key, required this.username, required this.accessToken, required this.password}) : super(key: key); // Modify the constructor
 
   @override
   _ContactusState createState() => _ContactusState();
@@ -29,6 +30,22 @@ class _ContactusState extends State<Contactus>{
       );
 
       if (response.statusCode == 200) {
+        // Show a snackbar to indicate successful logout
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Row(
+            children: [
+              Expanded(child: Text('logout successful'),
+              ),
+              Icon(Icons.logout, color: Colors.white,),
+            ],
+          ),
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          behavior: SnackBarBehavior.floating,),
+        );
+
         // If successful logout, navigate to SignIn screen
         Navigator.pushReplacement(
           context,
@@ -48,7 +65,15 @@ class _ContactusState extends State<Contactus>{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
-        automaticallyImplyLeading: false, // Add this line
+        automaticallyImplyLeading: false,
+        leading: Center(
+          child: Image.asset(
+            'lib/image/logo.png',
+            width: 50,
+            height: 50,
+            color: Colors.black,
+          ),
+        ),// Add this line
         title: Text(
           'Setting',
           style: TextStyle(
@@ -71,45 +96,14 @@ class _ContactusState extends State<Contactus>{
                     // First set of data
                     Container(
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-
+                        mainAxisAlignment: MainAxisAlignment.center, // Align items in the center horizontally
                         children: [
-                          // Left side - Profile Avatar
                           CircleAvatar(
-                            radius: 25,
+                            radius: 60,
                             backgroundImage: AssetImage('lib/image/lo.png'), // Replace with your image path
-                          ),
-                          SizedBox(width: 10),
-
-                          // Right side - Display Name Information
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20, top: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Display Name:',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    widget.username,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         ],
                       ),
-
                     ),
 
                     // White shadow box
@@ -127,24 +121,61 @@ class _ContactusState extends State<Contactus>{
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // Left side - Profile Avatar (replace with your data)
                             Expanded(
                               child: Container(
                                 margin: EdgeInsets.only( top: 20),
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 10, left: 30),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Display Name:',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
+                                  child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Display Name:',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Container(
+                                              margin: EdgeInsets.only(left: 10),
+                                              child: Text(
+                                                widget.username,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      SizedBox(height: 8),
-                                    ],
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Password:',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Container(
+                                              margin: EdgeInsets.only(left: 10),
+                                              child: Text(
+                                                widget.password,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -155,6 +186,7 @@ class _ContactusState extends State<Contactus>{
                     ),
 
                     Container(
+                      margin: EdgeInsets.only(top: 30),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -162,11 +194,20 @@ class _ContactusState extends State<Contactus>{
                             padding: const EdgeInsets.all(8.0),
                             child: TextButton(
                               onPressed: _logout,
-                              child: Text(
-                                'Logout',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 20
+                              style: TextButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                backgroundColor: Colors.red.shade500
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.only(left: 30, right: 30),
+                                child: Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20
+                                  ),
                                 ),
                               ),
                             ),

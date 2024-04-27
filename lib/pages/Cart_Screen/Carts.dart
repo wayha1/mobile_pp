@@ -78,7 +78,6 @@ class _CartsState extends State<Carts> {
       total += counts[i] * price; // Calculate total based on counts and prices
     }
 
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
@@ -100,7 +99,29 @@ class _CartsState extends State<Carts> {
       ),
       body: cartItems.isEmpty
           ? Center(
-        child: Text('Cart is empty'),
+        child: Container(
+          child: Stack(
+            children: [
+              // Image
+              Image.asset(
+                'assets/emptybox.png', // Replace with your image path
+                width: 150, // Adjust width as needed
+                height: 150, // Adjust height as needed
+              ),
+              SizedBox(height: 20,),
+              Container(
+                margin: EdgeInsets.only(bottom: 20, left: 30),
+                child: Text(
+                  'Cart is empty',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ) :Column(
         children: [
           Expanded(
@@ -198,7 +219,28 @@ class _CartsState extends State<Carts> {
       ),
       bottomNavigationBar: cartItems.isEmpty
           ? Center(
-        child: Text('Cart is empty'),
+        child: Container(
+          child: Stack(
+            children: [
+              // Image
+              Image.asset(
+                'assets/emptybox.png', // Replace with your image path
+                width: 250, // Adjust width as needed
+                height: 250, // Adjust height as needed
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 20, left: 70),
+                child: Text(
+                  'Cart is empty',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ) : BottomAppBar(
         child: Container(
           child: Center(

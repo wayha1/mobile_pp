@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         body: Stack(
           children: [
             MyFavorite(),
-            MyButtomNavBar(username: 'username',),
+            MyButtomNavBar(username: 'username', password: 'password',),
             SignUp(),
             SignIn(),
             logo()
