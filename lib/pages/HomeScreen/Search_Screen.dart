@@ -16,28 +16,27 @@ class _Search_ScreenState extends State<Search_Screen> {
   TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> searchResults = [];
 
-  Future<void> searchBooks(String query) async {
+  Future<void> searchBookById(int id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString('access_token') ?? widget.accessToken;
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:5000/books/book'), // Include the search query in the URL
+        Uri.parse('http://10.0.2.2:5000/books/book/$id'), // Send ID directly in URL path
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
       if (response.statusCode == 200) {
         setState(() {
-          searchResults = List<Map<String, dynamic>>.from(
-            json.decode(response.body),
-          );
+          searchResults.clear(); // Clear existing search results
+          searchResults.add(json.decode(response.body)); // Add the retrieved book to searchResults list
         });
       } else {
-        print('Failed to search books - Status Code: ${response.statusCode}');
+        print('Failed to search book by ID - Status Code: ${response.statusCode}');
         print('Response Body: ${response.body}');
-        throw Exception('Failed to search books');
+        throw Exception('Failed to search book by ID');
       }
     } catch (error) {
-      print('Error searching books: $error');
+      print('Error searching book by ID: $error');
     }
   }
 
@@ -70,26 +69,33 @@ class _Search_ScreenState extends State<Search_Screen> {
             Container(
               padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 1.0, bottom: 1.0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), // Adjust border radius as needed
-                color: Colors.grey[200], // Adjust background color as needed
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[200],
                 border: Border.all(
-                  color: Colors.grey, // Set the border color
-                  width: 2, // Set the border width
+                  color: Colors.grey,
+                  width: 2,
                 ),
               ),
               child: TextField(
                 controller: _searchController,
                 onChanged: (value) {
-                  // Call searchBooks when the text field value changes
-                  searchBooks(value);
+                  // Parse the value to int and pass it to searchBookById
+                  searchBookById(int.parse(value));
                 },
                 onSubmitted: (value) {
-                  // Clear search results when the user submits their search query
                   clearSearchResults();
                 },
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.search), labelText: 'Find your Books here',
-                  border: InputBorder.none, // Remove TextField border
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      // Clear text field and search results when the clear icon is tapped
+                      _searchController.clear();
+                      clearSearchResults();
+                    },
+                  ),
+                  labelText: 'Find your Books here',
+                  border: InputBorder.none,
                 ),
               ),
             ),
@@ -114,4 +120,5 @@ class _Search_ScreenState extends State<Search_Screen> {
     );
   }
 }
+
 

@@ -85,96 +85,129 @@ class _ContactusState extends State<Contactus>{
       ),
       body: Padding(
         padding: const EdgeInsets.all(1.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    // First set of data
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center, // Align items in the center horizontally
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundImage: AssetImage('lib/image/lo.png'), // Replace with your image path
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // White shadow box
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          border: Border.all(
-                            color: Colors.blue,
-                            width: 1,
-                          ),
-
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      // First set of data
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center, // Align items in the center horizontally
+                          children: [
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundImage: AssetImage('lib/image/lo.png'), // Replace with your image path
+                            ),
+                          ],
                         ),
+                      ),
+          
+                      // White shadow box
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            border: Border.all(
+                              color: Colors.blue,
+                              width: 1,
+                            ),
+          
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only( top: 20),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 10, left: 30),
+                                    child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Display Name:',
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 8),
+                                              Container(
+                                                margin: EdgeInsets.only(left: 10),
+                                                child: Text(
+                                                  widget.username,
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Password:',
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 8),
+                                              Container(
+                                                margin: EdgeInsets.only(left: 10),
+                                                child: Text(
+                                                  widget.password,
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+          
+                      Container(
+                        margin: EdgeInsets.only(top: 30),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only( top: 20),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 10, left: 30),
-                                  child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Display Name:',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(height: 8),
-                                            Container(
-                                              margin: EdgeInsets.only(left: 10),
-                                              child: Text(
-                                                widget.username,
-                                                style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Password:',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(height: 8),
-                                            Container(
-                                              margin: EdgeInsets.only(left: 10),
-                                              child: Text(
-                                                widget.password,
-                                                style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextButton(
+                                onPressed: _logout,
+                                style: TextButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  backgroundColor: Colors.red.shade500
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 30, right: 30),
+                                  child: Text(
+                                    'Logout',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20
                                     ),
                                   ),
                                 ),
@@ -183,43 +216,12 @@ class _ContactusState extends State<Contactus>{
                           ],
                         ),
                       ),
-                    ),
-
-                    Container(
-                      margin: EdgeInsets.only(top: 30),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextButton(
-                              onPressed: _logout,
-                              style: TextButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                backgroundColor: Colors.red.shade500
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.only(left: 30, right: 30),
-                                child: Text(
-                                  'Logout',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -66,12 +66,12 @@ class _MyFavoriteState extends State<MyFavorite> {
             color: Colors.black,
           ),
         ),
-        title: Text('Favorite Screen'),
+        title: Text('My Books'),
       ),
       body: responseData.isEmpty
           ? Center(
         child: Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(top: 50, bottom: 30),
           child: Stack(
             children: [
               // Image
@@ -82,7 +82,7 @@ class _MyFavoriteState extends State<MyFavorite> {
               ),
               SizedBox(height: 20,),
               Container(
-                margin: EdgeInsets.only(bottom: 20, left: 30),
+                margin: EdgeInsets.only(left: 30),
                 child: Text(
                   'No favorite items found.',
                   style: TextStyle(

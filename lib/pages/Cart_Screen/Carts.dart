@@ -220,6 +220,7 @@ class _CartsState extends State<Carts> {
       bottomNavigationBar: cartItems.isEmpty
           ? Center(
         child: Container(
+          margin: EdgeInsets.only(top: 100),
           child: Stack(
             children: [
               // Image
