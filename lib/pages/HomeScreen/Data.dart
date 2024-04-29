@@ -60,10 +60,26 @@ class _DataState extends State<Data> {
   Future<void> addToFavorites() async {
     try {
       // Check if item has already been added to cart
-      if (addToFavorite) {
-        Fluttertoast.showToast(msg: 'Item already added to cart');
-        return;
-      }
+      // if (addToFavorite) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Row(
+      //         children: [
+      //           Expanded(
+      //             child: Text('Item already added to Favorite'),
+      //           ),
+      //           Icon(Icons.info_outline, color: Colors.white),
+      //         ],
+      //       ),
+      //       backgroundColor: Colors.red.shade500,
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(20),
+      //       ),
+      //       behavior: SnackBarBehavior.floating,
+      //     ),
+      //   );
+      //   return;
+      // }
 
       // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -110,6 +126,28 @@ class _DataState extends State<Data> {
       if (response.statusCode == 200) {
         // Data successfully added to favorites
         print('Data added to favorites successfully');
+        // Update state to reflect that item has been added to cart
+        setState(() {
+          addToFavorite = true;
+        });
+        // Show SnackBar to indicate successful addition to cart
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Expanded(
+                  child: Text('Item already added to Favorite.'),
+                ),
+                Icon(Icons.check_circle_outline, color: Colors.white),
+              ],
+            ),
+            backgroundColor: Colors.green.shade500,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       } else {
         // Error occurred
         print('Failed to add data to favorites. Status code: ${response.statusCode}');
@@ -125,10 +163,26 @@ class _DataState extends State<Data> {
   Future<void> addToCarts() async {
     try {
       // Check if item has already been added to cart
-      if (addedToCart) {
-        Fluttertoast.showToast(msg: 'Item already added to cart');
-        return;
-      }
+      // if (addedToCart) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Row(
+      //         children: [
+      //           Expanded(
+      //             child: Text('Item already added to cart'),
+      //           ),
+      //           Icon(Icons.info_outline, color: Colors.white),
+      //         ],
+      //       ),
+      //       backgroundColor: Colors.red.shade500,
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(20),
+      //       ),
+      //       behavior: SnackBarBehavior.floating,
+      //     ),
+      //   );
+      //   return;
+      // }
 
       // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -176,6 +230,28 @@ class _DataState extends State<Data> {
       if (response.statusCode == 200) {
         // Data successfully added to cart
         print('Data added to Cart successfully');
+        // Update state to reflect that item has been added to cart
+        setState(() {
+          addedToCart = true;
+        });
+        // Show SnackBar to indicate successful addition to cart
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Expanded(
+                  child: Text('Item already added to cart'),
+                ),
+                Icon(Icons.check_circle_outline, color: Colors.white),
+              ],
+            ),
+            backgroundColor: Colors.green.shade500,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       } else {
         // Error occurred
         print('Failed to add data to Cart. Status code: ${response.statusCode}');
