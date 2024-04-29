@@ -1,14 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-//import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart'; // Import carousel_slider package
 import 'package:project_practicum/pages/HomeScreen/Data.dart';
 import 'package:project_practicum/pages/HomeScreen/Search_Screen.dart';
 import 'package:project_practicum/pages/HomeScreen/information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../Cart_Screen/Carts.dart';
 
 class Account extends StatefulWidget {
   final String accessToken;
@@ -104,12 +101,9 @@ class _AccountState extends State<Account> {
 
   @override
   Widget build(BuildContext context) {
-
-    // filter category 1
     // Filter category 1 books
     final comicBooks = informationProvider1.where((book) => book['category']['id'] == 1).toList();
-
-// Filter category 2 books
+    // Filter category 2 books
     final comdyBooks = informationProvider1.where((book) => book['category']['id'] == 2).toList();
 
     return Scaffold(
@@ -131,22 +125,6 @@ class _AccountState extends State<Account> {
           ),
         ),
         actions: [
-          // Padding(
-          //   padding: const EdgeInsets.only(right: 16.0),
-          //   child: IconButton(
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => const Carts(
-          //             accessToken: 'access_token',
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //     icon: Icon(Icons.shopping_cart),
-          //   ),
-          // ),
           IconButton(
               onPressed: (){
                 Navigator.push(
