@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class Search_Screen extends StatefulWidget {
   final String accessToken;
   const Search_Screen({Key? key, required this.accessToken}) : super(key: key);
@@ -16,12 +15,12 @@ class _Search_ScreenState extends State<Search_Screen> {
   TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> searchResults = [];
 
-  Future<void> searchBookById(int id) async {
+  Future<void> searchBookByTitle(String title) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString('access_token') ?? widget.accessToken;
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:5000/books/book/$id'), // Send ID directly in URL path
+        Uri.parse('http://10.0.2.2:5000/books/book/$title'), // Send title directly in URL path
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
@@ -31,12 +30,12 @@ class _Search_ScreenState extends State<Search_Screen> {
           searchResults.add(json.decode(response.body)); // Add the retrieved book to searchResults list
         });
       } else {
-        print('Failed to search book by ID - Status Code: ${response.statusCode}');
+        print('Failed to search book by title - Status Code: ${response.statusCode}');
         print('Response Body: ${response.body}');
-        throw Exception('Failed to search book by ID');
+        throw Exception('Failed to search book by title');
       }
     } catch (error) {
-      print('Error searching book by ID: $error');
+      print('Error searching book by title: $error');
     }
   }
 
@@ -79,8 +78,8 @@ class _Search_ScreenState extends State<Search_Screen> {
               child: TextField(
                 controller: _searchController,
                 onChanged: (value) {
-                  // Parse the value to int and pass it to searchBookById
-                  searchBookById(int.parse(value));
+                  // Pass the value to searchBookByTitle
+                  searchBookByTitle(value);
                 },
                 onSubmitted: (value) {
                   clearSearchResults();
@@ -120,5 +119,3 @@ class _Search_ScreenState extends State<Search_Screen> {
     );
   }
 }
-
-
