@@ -81,6 +81,7 @@ flutter:
     - assets/Animation - 1711807417209.json
     - assets/card.webp
     - assets/emptybox.png
+    - assets/search.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

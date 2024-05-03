@@ -106,35 +106,58 @@ class _Search_ScreenState extends State<Search_Screen> {
             ),
             SizedBox(height: 20),
             Expanded(
-              child: ListView.builder(
+              child: searchResults.isEmpty
+                  ? Center(
+                child: Container(
+                  child: Stack(
+                    children: [
+                      // Image
+                      Image.asset(
+                        'assets/search.jpg', // Replace with your image path
+                        width: 280, // Adjust width as needed
+                        height: 320, // Adjust height as needed
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20, left: 70),
+                        child: Text(
+                          'Book Not Found!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ) :ListView.builder(
                 itemCount: searchResults.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      //Map<String, dynamic> bookDetails = searchResults[index];
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => Data(
-                      //       imageUrl: searchResults[index]['book_image'] ?? '',
-                      //       titleBook: searchResults[index]['title'] ?? '',
-                      //       priceBook: searchResults[index]['price']?.toString() ?? '',
-                      //       description: searchResults[index]['description'] ?? '',
-                      //       publisher: searchResults[index]['publisher'] ?? '',
-                      //       authorBook: searchResults[index]['author'] ?? '',
-                      //       authorDecs: searchResults[index]['author_description'] ?? '',
-                      //       bookId: searchResults[index]['book_id'] ?? '',
-                      //       authorID: searchResults[index]['author_id'] ?? '',
-                      //       authorGender: searchResults[index]['author_gender'] ?? '',
-                      //       authorImage: searchResults[index]['author_image'] ?? '',
-                      //       CategoryID: searchResults[index]['category_id'] ?? '',
-                      //       CategoryName: searchResults[index]['category_name'] ?? '',
-                      //       bookPdf: searchResults[index]['book_pdf'] ?? '',
-                      //     ),
-                      //   ),
-                      // ).catchError((error) {
-                      //   print('Error navigating to Data widget: $error');
-                      // });
+                      // Navigate to Data screen when image is tapped
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Data(
+                            imageUrl: searchResults[index]['book_image'],
+                            titleBook: searchResults[index]['title'],
+                            priceBook: searchResults[index]['price'],
+                            description: searchResults[index]['description'],
+                            publisher: searchResults[index]['publisher'],
+                            authorBook: searchResults[index]['author']['author_name'],
+                            authorDecs: searchResults[index]['author']['author_decs'],
+                            bookId: searchResults[index]['id'],
+                            authorID: searchResults[index]['author']['id'],
+                            authorGender: searchResults[index]['author']['gender'],
+                            authorImage: searchResults[index]['author']['author_image'],
+                            CategoryID: searchResults[index]['category']['id'],
+                            CategoryName: searchResults[index]['category']['name'],
+                            bookPdf: searchResults[index]['book_pdf'],
+                          ),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -164,6 +187,7 @@ class _Search_ScreenState extends State<Search_Screen> {
                 },
               ),
             ),
+
           ],
         ),
       ),
