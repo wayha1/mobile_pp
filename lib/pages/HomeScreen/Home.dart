@@ -130,7 +130,7 @@ class _AccountState extends State<Account> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Search_Screen(accessToken: 'access_token',)),
+                        builder: (context) => const Search_Screen(accessToken: 'access_token')),
                 );
               },
               icon: Icon(Icons.search)
@@ -158,7 +158,6 @@ class _AccountState extends State<Account> {
                         children: [
                           SizedBox(
                             width: 400,
-
                             height: 200,
                             child: Image.network(
                               item['book_image'] ?? '',
@@ -511,5 +510,3 @@ class _AccountState extends State<Account> {
     );
   }
 }
-
-

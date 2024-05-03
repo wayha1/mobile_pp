@@ -59,27 +59,6 @@ class _DataState extends State<Data> {
 
   Future<void> addToFavorites() async {
     try {
-      // Check if item has already been added to cart
-      // if (addToFavorite) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(
-      //       content: Row(
-      //         children: [
-      //           Expanded(
-      //             child: Text('Item already added to Favorite'),
-      //           ),
-      //           Icon(Icons.info_outline, color: Colors.white),
-      //         ],
-      //       ),
-      //       backgroundColor: Colors.red.shade500,
-      //       shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(20),
-      //       ),
-      //       behavior: SnackBarBehavior.floating,
-      //     ),
-      //   );
-      //   return;
-      // }
 
       // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -162,28 +141,6 @@ class _DataState extends State<Data> {
   // Function to post Carts data
   Future<void> addToCarts() async {
     try {
-      // Check if item has already been added to cart
-      // if (addedToCart) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(
-      //       content: Row(
-      //         children: [
-      //           Expanded(
-      //             child: Text('Item already added to cart'),
-      //           ),
-      //           Icon(Icons.info_outline, color: Colors.white),
-      //         ],
-      //       ),
-      //       backgroundColor: Colors.red.shade500,
-      //       shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(20),
-      //       ),
-      //       behavior: SnackBarBehavior.floating,
-      //     ),
-      //   );
-      //   return;
-      // }
-
       // Retrieve access token from SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? accessToken = prefs.getString('access_token');
