@@ -429,6 +429,14 @@ class _DataState extends State<Data> {
                           ),
                         ),
                         SizedBox(height: 16),
+                        Text(
+                          'Recommed Books',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue.shade400
+                          ),
+                        ),
                       ],
                     ),
                   ),
