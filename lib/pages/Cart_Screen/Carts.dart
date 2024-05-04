@@ -22,7 +22,7 @@ class _CartsState extends State<Carts> {
   @override
   void initState() {
     super.initState();
-    fetchData(); // Call fetchData() when the widget is initialized
+    fetchData();
   }
 
   Future<void> fetchData() async {
@@ -66,6 +66,69 @@ class _CartsState extends State<Carts> {
       });
     }
   }
+
+  // Function to show a confirmation dialog
+  Future<void> showDeleteConfirmationDialog(BuildContext context, int index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Item'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure you want to delete this item?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Delete'),
+              onPressed: () {
+                // Call the function to delete the item
+                deleteItem(index);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to delete the item
+  Future<void> deleteItem(int index) async {
+    try {
+      final item = cartItems[index];
+      final int itemId = item['book']['id']; // Assuming 'id' is the key for the item's ID
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final accessToken = prefs.getString('access_token') ?? widget.accessToken;
+
+      // Make DELETE request to the API endpoint with the item ID
+      final response = await http.delete(
+        Uri.parse('http://10.0.2.2:5000/events/cart/$itemId'),
+        headers: {'Authorization': 'Bearer $accessToken'},
+      );
+
+      if (response.statusCode == 200) {
+        // Item deleted successfully, update the UI or fetch data again
+        fetchData();
+      } else {
+        // Handle error
+        print('Failed to delete item');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +247,9 @@ class _CartsState extends State<Carts> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showDeleteConfirmationDialog(context, index);
+                                      },
                                       icon: Icon(Icons.delete),
                                     ),
                                   ],
