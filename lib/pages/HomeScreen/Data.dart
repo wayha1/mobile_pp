@@ -98,39 +98,32 @@ class _DataState extends State<Data> {
 
   Future<void> addToFavorites() async {
     try {
+      if (addToFavorite) {
+        // If addToFavorite is already true, do not send the request again
+        return;
+      }
 
-      // Retrieve access token from SharedPreferences
+      setState(() {
+        // Disable the button while the request is being processed
+        addToFavorite = true;
+      });
+
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? accessToken = prefs.getString('access_token');
-
-      if (accessToken == null) {
-        // Access token not found, handle the case accordingly
-        print('Access token not found. Cannot add to favorite.');
-        return;
-      }
-
-      // Retrieve user_id from SharedPreferences
       final int? userId = prefs.getInt('user_id');
 
-      if (userId == null) {
-        // User is not signed in, handle the case accordingly
-        print('User ID is null. Cannot add to favorites.');
+      if (accessToken == null || userId == null) {
+        print('Access token or user ID not found. Cannot add to favorites.');
         return;
       }
 
-      // Prepare the data to send
       final Map<String, dynamic> data = {
         "user_id": userId,
         "book_id": widget.bookId,
       };
 
-      // Print the data
-      print('Data to be sent to server: $data');
-
-      // Convert data to JSON
       final jsonData = jsonEncode(data);
 
-      // Send POST request
       final response = await http.post(
         Uri.parse('http://10.0.2.2:5000/events/userbook'),
         headers: <String, String>{
@@ -140,41 +133,51 @@ class _DataState extends State<Data> {
         body: jsonData,
       );
 
-      // Check if request was successful
-      if (response.statusCode == 200) {
-        // Data successfully added to favorites
+      if (response.statusCode == 201) {
         print('Data added to favorites successfully');
-        // Update state to reflect that item has been added to cart
-        setState(() {
-          addToFavorite = true;
-        });
-        // Show SnackBar to indicate successful addition to cart
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Expanded(
-                  child: Text('Item already added to Favorite.'),
-                ),
-                Icon(Icons.check_circle_outline, color: Colors.white),
-              ],
+        // Optionally, update the UI or perform any other actions upon successful addition
+        // Check if the item is already added to favorites
+        if (!addToFavorite) {
+          // Set addedToFavorite to true to prevent duplicate SnackBar
+          setState(() {
+            addToFavorite = true;
+          });
+          // Show SnackBar to indicate successful addition to favorites
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Expanded(
+                    child: Text('Item added to favorites'),
+                  ),
+                  Icon(Icons.check_circle_outline, color: Colors.white),
+                ],
+              ),
+              backgroundColor: Colors.green.shade500,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              behavior: SnackBarBehavior.floating,
             ),
-            backgroundColor: Colors.green.shade500,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+          );
+        }
+      } else if (response.statusCode == 400) {
+        // Handle specific error cases if necessary
+        print('Bad request - Error: ${response.body}');
       } else {
-        // Error occurred
+        // Handle other status codes
         print('Failed to add data to favorites. Status code: ${response.statusCode}');
       }
     } catch (error) {
-      // Handle any errors
       print('Error: $error');
+    } finally {
+      setState(() {
+        // Re-enable the button after request completion (successful or not)
+        addToFavorite = false;
+      });
     }
   }
+
 
 
   // Function to post Carts data

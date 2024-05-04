@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyFavorite extends StatefulWidget {
-  const MyFavorite({Key? key}) : super(key: key);
+  final String accessToken;
+  const MyFavorite({Key? key, required this.accessToken}) : super(key: key);
 
   @override
   _MyFavoriteState createState() => _MyFavoriteState();
@@ -50,6 +51,90 @@ class _MyFavoriteState extends State<MyFavorite> {
       print('Error: $error');
     }
   }
+
+  // Function to show a confirmation dialog
+  Future<void> showDeleteConfirmationDialog(BuildContext context, int index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Item'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure you want to delete this item?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Delete'),
+              onPressed: () async {
+                // Show a loading indicator after a short delay
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade400), // Customize the color here
+                      ),
+                    );
+                  },
+                );
+                // Add a short delay to ensure the loading indicator is displayed
+                await Future.delayed(Duration(milliseconds: 1000));
+                // Call the function to delete the item
+                await deleteItem(index);
+                // Fetch data again to update the UI
+                await fetchData();
+                // Close the loading indicator dialog
+                Navigator.of(context).pop();
+                // Close the confirmation dialog
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to delete the item
+  Future<void> deleteItem(int index) async {
+    try {
+      final item = responseData[index];
+      final int itemId = item['id'];
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final accessToken = prefs.getString('access_token') ?? widget.accessToken;
+
+      final response = await http.delete(
+        Uri.parse('http://10.0.2.2:5000/events/userbook/$itemId'),
+        headers: {'Authorization': 'Bearer $accessToken'},
+      );
+
+      if (response.statusCode == 200) {
+        // Remove the deleted item from the responseData list
+        setState(() {
+          responseData.removeAt(index);
+        });
+      } else {
+        // Handle error
+        print('Failed to delete item');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +207,7 @@ class _MyFavoriteState extends State<MyFavorite> {
                 IconButton(
                   onPressed: () {
                     // Add delete functionality here
+                    showDeleteConfirmationDialog(context, index);
                   },
                   icon: Icon(Icons.delete),
                 ),

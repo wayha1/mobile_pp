@@ -29,7 +29,7 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
       Carts(accessToken: 'access_token',),
       AuthorBook(accessToken: 'access_Token',),
       Contactus(username: widget.username, accessToken: 'access_Token', password: widget.password,),
-      MyFavorite(),
+      MyFavorite(accessToken: 'access_Token',),
     ];
   }
 

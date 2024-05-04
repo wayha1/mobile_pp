@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            MyFavorite(),
+            MyFavorite(accessToken: 'access_Token',),
             MyButtomNavBar(username: 'username', password: 'password',),
             SignUp(),
             SignIn(),
