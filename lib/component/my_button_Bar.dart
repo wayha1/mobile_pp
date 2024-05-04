@@ -3,6 +3,7 @@ import 'package:project_practicum/pages/HomeScreen/Home.dart';
 import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
 import 'package:project_practicum/pages/ContactUs_screen/Contactus.dart';
 import 'package:project_practicum/pages/Favorite_screen/MyFavorite.dart';
+import 'package:project_practicum/pages/HomeScreen/information.dart';
 
 import '../pages/AuthorBook_Screen/Author.dart';
 

@@ -50,12 +50,51 @@ class _DataState extends State<Data> {
   bool showMore = false;
   bool addedToCart = false; // State variable to track whether item is added to cart
   bool addToFavorite = false;
+  List<Map<String, dynamic>> recommendedBooks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRecommendedBooksByAuthor(widget.authorBook);
+  }
 
   // Function to retrieve the access token from SharedPreferences
   Future<String?> _getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('access_token');
   }
+
+  Future<void> fetchRecommendedBooksByAuthor(String authorBook) async {
+    try {
+      final accessToken = await _getAccessToken();
+
+      if (accessToken == null) {
+        print('Access token not found. Cannot fetch recommended books.');
+        return;
+      }
+
+      final response = await http.get(
+        Uri.parse('http://10.0.2.2:5000/books/book?author_name=$authorBook'),
+        headers: {'Authorization': 'Bearer $accessToken'},
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+
+        // Filter out books with different author name
+        final filteredBooks = responseData.where((book) => book['author']['author_name'] == authorBook).toList();
+
+        setState(() {
+          recommendedBooks = List<Map<String, dynamic>>.from(filteredBooks);
+        });
+      } else {
+        print('Failed to fetch recommended books - Status Code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
 
   Future<void> addToFavorites() async {
     try {
@@ -429,12 +468,76 @@ class _DataState extends State<Data> {
                           ),
                         ),
                         SizedBox(height: 16),
-                        Text(
-                          'Recommed Books',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue.shade400
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10, left: 7),
+                          child: Text(
+                            recommendedBooks.isNotEmpty
+                                ? 'Recommended by ${recommendedBooks[0]['author']['author_name']}'
+                                : 'Recommended Books',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.pink,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: recommendedBooks.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: (){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Data(
+                                            imageUrl: recommendedBooks[index]['book_image'],
+                                            titleBook: recommendedBooks[index]['title'],
+                                            priceBook: recommendedBooks[index]['price'],
+                                            description: recommendedBooks[index]['description'],
+                                            publisher: recommendedBooks[index]['publisher'],
+                                            authorBook: recommendedBooks[index]['author']['author_name'],
+                                            authorDecs: recommendedBooks[index]['author']['author_decs'],
+                                            bookId: recommendedBooks[index]['id'],
+                                            authorID: recommendedBooks[index]['author']['id'],
+                                            authorGender: recommendedBooks[index]['author']['gender'],
+                                            authorImage: recommendedBooks[index]['author']['author_image'],
+                                            CategoryID: recommendedBooks[index]['category']['id'],
+                                            CategoryName: recommendedBooks[index]['category']['name'],
+                                            bookPdf: recommendedBooks[index]['book_pdf'],
+                                          ),
+                                      ),
+                                  );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 8),
+                                  width: 150,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Image.network(
+                                        recommendedBooks[index]['book_image'],
+                                        width: 150,
+                                        height: 150,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        recommendedBooks[index]['title'],
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

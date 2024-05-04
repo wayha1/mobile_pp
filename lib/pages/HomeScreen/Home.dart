@@ -248,27 +248,27 @@ class _AccountState extends State<Account> {
               height: 10, // Add margin here
             ),
             Container(
-              height: 380,
+              height: 330,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: comicBooks.length,
                 itemBuilder: (context, index){
                   return Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
                           color: Colors.white,
                         border: Border.all(
                           color: Colors.grey, // Border color
-                          width: 1.0, // Border width
+                          width: 2.0, // Border width
                         ),
                       ),
                       child: Column(
                         children: [
                           SizedBox(
-                            width: 200,
-                            height: 260,
+                            width: 180,
+                            height: 190,
                             child: GestureDetector(
                               onTap: (){
                                 Navigator.push(
@@ -306,7 +306,8 @@ class _AccountState extends State<Account> {
                           ),
                           SizedBox(height: 8), // Add spacing between image and text
                           Container(
-                            padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
+                            //padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
+                            padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade50, // Background color
                               borderRadius: BorderRadius.circular(15.0),
@@ -408,7 +409,7 @@ class _AccountState extends State<Account> {
             ),
             Container(
               margin: EdgeInsets.only(bottom: 20.0),
-              height: 370,
+              height: 330,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: comdyBooks.length,
@@ -428,8 +429,8 @@ class _AccountState extends State<Account> {
                         children: [
                           Container(
                             child: SizedBox(
-                              width: 200,
-                              height: 260,
+                              width: 180,
+                              height: 190,
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -466,7 +467,7 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
+                            padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade50, // Background color
                               borderRadius: BorderRadius.circular(15.0),
