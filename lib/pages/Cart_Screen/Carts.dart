@@ -91,9 +91,28 @@ class _CartsState extends State<Carts> {
             ),
             TextButton(
               child: Text('Delete'),
-              onPressed: () {
+              onPressed: () async {
+                // Show a loading indicator after a short delay
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade400), // Customize the color here
+                      ),
+                    );
+                  },
+                );
+                // Add a short delay to ensure the loading indicator is displayed
+                await Future.delayed(Duration(milliseconds: 1000));
                 // Call the function to delete the item
-                deleteItem(index);
+                await deleteItem(index);
+                // Fetch data again to update the UI
+                await fetchData();
+                // Close the loading indicator dialog
+                Navigator.of(context).pop();
+                // Close the confirmation dialog
                 Navigator.of(context).pop();
               },
             ),
@@ -107,7 +126,7 @@ class _CartsState extends State<Carts> {
   Future<void> deleteItem(int index) async {
     try {
       final item = cartItems[index];
-      final int itemId = item['book']['id']; // Assuming 'id' is the key for the item's ID
+      final int itemId = item['id']; // Assuming 'id' is the key for the item's ID
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final accessToken = prefs.getString('access_token') ?? widget.accessToken;
 
