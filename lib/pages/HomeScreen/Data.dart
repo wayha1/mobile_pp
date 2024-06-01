@@ -338,10 +338,15 @@ class _DataState extends State<Data> {
                                         Colors.red),
                                   ),
                                   onPressed: () {
+                                    // Add the print statement here
+                                    print('PDF URL: ${widget.bookPdf}'); // This will print the bookPdf URL to the console
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Read(),
+                                        builder: (context) => Read(
+                                          pdfUrl: 'https://drive.google.com/file/d/1LFfeFc9tvE3MJLs4e6sHL0X_4UqFei_D/view?usp=drivesdk',
+
+                                        ),
                                       ),
                                     );
                                   },
