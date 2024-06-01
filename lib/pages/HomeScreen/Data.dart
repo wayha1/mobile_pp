@@ -343,6 +343,7 @@ class _DataState extends State<Data> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
+
                                         builder: (context) => Read(
                                           pdfUrl: widget.bookPdf,
 

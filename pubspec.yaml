@@ -45,6 +45,7 @@ dependencies:
   webview_flutter:  ^2.0.13
   syncfusion_flutter_pdfviewer: ^24.2.8
   device_info_plus: ^9.1.2
+  advance_pdf_viewer: ^2.0.0
 #  google_fonts: ^6.2.1
 #  syncfusion_flutter_pdfviewer: ^22.2.8
 
