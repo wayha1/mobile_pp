@@ -3,6 +3,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class Read extends StatelessWidget {
   final String pdfUrl;
+
   const Read({Key? key, required this.pdfUrl}) : super(key: key);
 
   @override
@@ -16,9 +17,25 @@ class Read extends StatelessWidget {
         filePath: pdfUrl,
         onError: (error) {
           print('Error loading PDF: $error');
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Error'),
+                content: Text('Failed to load PDF.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
         },
       ),
-
     );
   }
 }

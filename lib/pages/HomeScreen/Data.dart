@@ -344,7 +344,7 @@ class _DataState extends State<Data> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => Read(
-                                          pdfUrl: 'https://drive.google.com/file/d/1LFfeFc9tvE3MJLs4e6sHL0X_4UqFei_D/view?usp=drivesdk',
+                                          pdfUrl: widget.bookPdf,
 
                                         ),
                                       ),
