@@ -344,10 +344,7 @@ class _DataState extends State<Data> {
                                       context,
                                       MaterialPageRoute(
 
-                                        builder: (context) => Read(
-                                          pdfUrl: widget.bookPdf,
-
-                                        ),
+                                        builder: (context) => Read(),
                                       ),
                                     );
                                   },
