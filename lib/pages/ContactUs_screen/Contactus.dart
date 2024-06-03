@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_practicum/pages/HomeScreen/YourBook.dart';
 import 'package:project_practicum/pages/SignIn_Screen/SignIn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:google_fonts/google_fonts.dart';
@@ -186,35 +187,76 @@ class _ContactusState extends State<Contactus>{
                         ),
                       ),
           
-                      Container(
-                        margin: EdgeInsets.only(top: 30),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextButton(
-                                onPressed: _logout,
-                                style: TextButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  backgroundColor: Colors.red.shade500
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.only(left: 30, right: 30),
-                                  child: Text(
-                                    'Logout',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 30),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                    onPressed: _logout,
+                                    style: TextButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      backgroundColor: Colors.red.shade500
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 30, right: 30),
+                                      child: Text(
+                                        'Logout',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+
+                          Container(margin: EdgeInsets.only(top: 30),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        backgroundColor: Colors.blue.shade500
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => YourBook()
+                                          ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 30, right: 30),
+                                      child: Text(
+                                        'Your Book',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),),
+                        ],
                       ),
                     ],
                   ),
