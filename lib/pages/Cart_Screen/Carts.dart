@@ -41,7 +41,7 @@ class _CartsState extends State<Carts> {
         setState(() {
           cartItems = json.decode(response.body);
           // Initialize counts list with zeros for each item
-          counts = List<int>.filled(cartItems.length, 0);
+          counts = List<int>.filled(cartItems.length, 1);
         });
       } else {
         throw Exception('Failed to load data');

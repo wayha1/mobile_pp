@@ -16,7 +16,7 @@ class _ReadState extends State<Read> {
         title: Text('Read PDF'),
       ),
       body: SfPdfViewer.asset(
-          "assets/Project_skinme.pdf"
+          "assets/pdf.pdf"
       ),
     );
   }

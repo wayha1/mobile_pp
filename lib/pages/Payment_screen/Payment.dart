@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_practicum/pages/Cart_Screen/Carts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
+
 
 class Payment extends StatefulWidget {
   final String accessToken;
@@ -35,66 +37,144 @@ class _PaymentState extends State<Payment> {
           fontSize: 23,
         ),),
       ),
-      body: Container(
-        margin: EdgeInsets.only(top: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 25, bottom: 10),
-                  child: Text('Add To Card', style: TextStyle(
-                    fontSize: 20,
-                  ),),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 30, bottom: 10),
-                  child: TextButton(
-                    onPressed: () {
-                      paymentCarts();
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Done',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red.shade500,
-                          fontSize: 23,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(top: 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 25, bottom: 10),
+                    child: Text('Add To Card', style: TextStyle(
+                      fontSize: 20,
+                    ),),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 30, bottom: 10),
+                    child: TextButton(
+                      onPressed: () {
+                        paymentCarts();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Container(
+                          width: 100,
+                          height: 40, // Set the height of the container
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade50,
+                            borderRadius: BorderRadius.circular(5.0),
+                            border: Border.all(
+                              color: Colors.red,
+                              width: 2.0,
+                            ),
+                          ),
+                          child: Center( // Center the text vertically and horizontally
+                            child: Text(
+                              'Done',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red.shade500,
+                                fontSize: 23,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child: Image.asset(
-                'assets/card.webp',
+                  )
+                ],
               ),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 20, left: 12),
-                child: Text('Card', style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey.shade500
-                ),)
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 5),
-              color: Colors.grey.shade300,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.credit_card),
-                  labelText: "Credit Card",
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Image.asset(
+                  'assets/card.webp',
                 ),
               ),
-            ),
-          ],
+              Container(
+                  margin: EdgeInsets.only(top: 20, left: 12),
+                  child: Text('Card number', style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.grey.shade500
+                  ),)
+              ),
+              Container(
+                width: 390,
+                margin: EdgeInsets.only(top: 5, left: 10),
+                color: Colors.grey.shade300,
+                child: TextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.credit_card),
+                    labelText: "Card_number",
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 20, left: 12),
+                  child: Text('Card holder number', style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.grey.shade500
+                  ),)
+              ),
+              Container(
+                width: 390,
+                margin: EdgeInsets.only(top: 5, left: 10),
+                color: Colors.grey.shade300,
+                child: TextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.credit_card),
+                    labelText: "Card_holder_number",
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 20, left: 12),
+                  child: Text('Expiration Date', style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.grey.shade500
+                  ),)
+              ),
+              Container(
+                width: 390,
+                margin: EdgeInsets.only(top: 5, left: 10),
+                color: Colors.grey.shade300,
+                child: TextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.credit_card),
+                    labelText: "Expiration_date",
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 20, left: 12),
+                  child: Text('Cvv', style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.grey.shade500
+                  ),)
+              ),
+              Container(
+                width: 390,
+                margin: EdgeInsets.only(top: 5, left: 10, bottom: 20),
+                color: Colors.grey.shade300,
+                child: TextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.credit_card),
+                    labelText: "Cvv",
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

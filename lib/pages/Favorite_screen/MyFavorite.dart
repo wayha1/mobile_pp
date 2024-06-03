@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_practicum/pages/HomeScreen/Read.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -120,7 +121,7 @@ class _MyFavoriteState extends State<MyFavorite> {
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 204) {
         // Remove the deleted item from the responseData list
         setState(() {
           responseData.removeAt(index);
@@ -189,10 +190,17 @@ class _MyFavoriteState extends State<MyFavorite> {
             margin: EdgeInsets.only(left: 10, top: 10),
             child: Row(
               children: [
-                Image.network(
-                  bookImage,
-                  width: 150, // Adjust width as needed
-                  height: 150, // Adjust height as needed
+                Container(
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Read()));
+                    },
+                    child: Image.network(
+                      bookImage,
+                      width: 150, // Adjust width as needed
+                      height: 150, // Adjust height as needed
+                    ),
+                  ),
                 ),
                 SizedBox(width: 8),
                 Expanded(

@@ -133,8 +133,26 @@ class _DataState extends State<Data> {
         body: jsonData,
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         print('Data added to favorites successfully');
+        // Show SnackBar to indicate successful addition to favorites
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Expanded(
+                  child: Text('Item added to favorites'),
+                ),
+                Icon(Icons.check_circle_outline, color: Colors.white),
+              ],
+            ),
+            backgroundColor: Colors.green.shade500,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
         // Optionally, update the UI or perform any other actions upon successful addition
         // Check if the item is already added to favorites
         if (!addToFavorite) {
@@ -142,24 +160,7 @@ class _DataState extends State<Data> {
           setState(() {
             addToFavorite = true;
           });
-          // Show SnackBar to indicate successful addition to favorites
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  Expanded(
-                    child: Text('Item added to favorites'),
-                  ),
-                  Icon(Icons.check_circle_outline, color: Colors.white),
-                ],
-              ),
-              backgroundColor: Colors.green.shade500,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+
         }
       } else if (response.statusCode == 400) {
         // Handle specific error cases if necessary
@@ -226,20 +227,15 @@ class _DataState extends State<Data> {
       );
 
       // Check if request was successful
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         // Data successfully added to cart
         print('Data added to Cart successfully');
-        // Update state to reflect that item has been added to cart
-        setState(() {
-          addedToCart = true;
-        });
-        // Show SnackBar to indicate successful addition to cart
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
               children: [
                 Expanded(
-                  child: Text('Item already added to cart'),
+                  child: Text('Item added successful!'),
                 ),
                 Icon(Icons.check_circle_outline, color: Colors.white),
               ],
@@ -251,9 +247,35 @@ class _DataState extends State<Data> {
             behavior: SnackBarBehavior.floating,
           ),
         );
+        // Update state to reflect that item has been added to cart
+        setState(() {
+          addedToCart = true;
+        });
       } else {
         // Error occurred
         print('Failed to add data to Cart. Status code: ${response.statusCode}');
+      }
+
+
+      // if the item in Cart click on it twice
+      if(response.statusCode == 200){
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Expanded(
+                  child: Text('Item already added!'),
+                ),
+                Icon(Icons.stop, color: Colors.white),
+              ],
+            ),
+            backgroundColor: Colors.red.shade500,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     } catch (error) {
       // Handle any errors
