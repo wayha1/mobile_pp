@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:project_practicum/pages/HomeScreen/Read.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -192,7 +193,8 @@ class _YourBookState extends State<YourBook> {
                 Container(
                   child: GestureDetector(
                     onTap: (){
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => Read()));
+                      // Go to Read() screen
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Read()));
                     },
                     child: Image.network(
                       bookImage,
