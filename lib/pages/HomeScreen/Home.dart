@@ -133,63 +133,74 @@ class _AccountState extends State<Account> {
                         builder: (context) => const Search_Screen(accessToken: 'access_token')),
                 );
               },
-              icon: Icon(Icons.search)
+              icon: Icon(Icons.search,
+                color: Colors.grey.shade800,
+                size: 27,)
           ),
         ],
       ),
       body: Container(
-        color: Colors.grey.shade200,
         child: ListView(
           shrinkWrap: true,
           children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 290,
-                enableInfiniteScroll: true,
-                autoPlay: true,
-                onPageChanged: (index, reason) {},
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(18),
+                  bottomRight: Radius.circular(18),
+                ),
               ),
-              items: informationProvider1.map((item) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 400,
-                            height: 200,
-                            child: Image.network(
-                              item['book_image'] ?? '',
-                              fit: BoxFit.cover,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  height: 260,
+                  enableInfiniteScroll: true,
+                  autoPlay: true,
+                  onPageChanged: (index, reason) {},
+                ),
+                items: informationProvider1.map((item) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 370,
+                              height: 200,
+                              child: Image.network(
+                                item['book_image'] ?? '',
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  item['title'] ?? '',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    item['title'] ?? '',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
             ),
 
 
             //Container of comic book
             Container(
+              margin: EdgeInsets.only(top: 30),
               alignment: Alignment.topLeft,
               padding: EdgeInsets.only(left: 20.0),
               child: Row(
@@ -198,8 +209,8 @@ class _AccountState extends State<Account> {
                   Text(
                     'General Book',
                     style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
+                      fontSize: 17,
+                      color: Colors.blue.shade800,
                     ),
                   ),
                   Padding(
@@ -224,7 +235,7 @@ class _AccountState extends State<Account> {
                               Text(
                                 'See',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   color: Colors.green.shade500,
                                 ),
                               ),
@@ -248,7 +259,7 @@ class _AccountState extends State<Account> {
               height: 10, // Add margin here
             ),
             Container(
-              height: 330,
+              height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: comicBooks.length,
@@ -306,16 +317,7 @@ class _AccountState extends State<Account> {
                           ),
                           SizedBox(height: 8), // Add spacing between image and text
                           Container(
-                            //padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
                             padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade50, // Background color
-                              borderRadius: BorderRadius.circular(15.0),
-                              border: Border.all(
-                                color: Colors.grey, // Border color
-                                width: 2.0, // Border width
-                              ),// Rounded corners
-                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -360,8 +362,8 @@ class _AccountState extends State<Account> {
                   Text(
                     'Comdy Book',
                     style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
+                      fontSize: 17,
+                      color: Colors.blue.shade800,
                     ),
                   ),
                   Padding(
@@ -385,7 +387,7 @@ class _AccountState extends State<Account> {
                               Text(
                                 'See',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   color: Colors.green.shade500,
                                 ),
                               ),
@@ -409,7 +411,7 @@ class _AccountState extends State<Account> {
             ),
             Container(
               margin: EdgeInsets.only(bottom: 20.0),
-              height: 330,
+              height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: comdyBooks.length,
@@ -468,14 +470,14 @@ class _AccountState extends State<Account> {
                           ),
                           Container(
                             padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade50, // Background color
-                              borderRadius: BorderRadius.circular(15.0),
-                              border: Border.all(
-                                color: Colors.grey, // Border color
-                                width: 2.0, // Border width
-                              ),// Rounded corners
-                            ),
+                            // decoration: BoxDecoration(
+                            //   color: Colors.blue.shade50, // Background color
+                            //   borderRadius: BorderRadius.circular(15.0),
+                            //   border: Border.all(
+                            //     color: Colors.grey, // Border color
+                            //     width: 2.0, // Border width
+                            //   ),// Rounded corners
+                            // ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [

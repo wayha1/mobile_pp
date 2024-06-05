@@ -12,7 +12,7 @@ class Information extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Information - $categoryName'),
+        title: Text('$categoryName'),
         backgroundColor: Colors.green.shade300,
       ),
       body: Container(
@@ -81,29 +81,22 @@ class Information extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             Container(
-                              padding: EdgeInsets.only(top: 8.0, left: 30.0, right: 30.0, bottom: 8.0),
-                              decoration: BoxDecoration(
-                                color: Colors.blue.shade50, // Background color
-                                borderRadius: BorderRadius.circular(15.0),
-                                border: Border.all(
-                                  color: Colors.grey, // Border color
-                                  width: 2.0, // Border width
-                                ),// Rounded corners
-                              ),
+                              padding: EdgeInsets.only(top: 8.0,left: 4.0, right: 30.0, bottom: 8.0),
                               child: Column(
                                 children: [
                                   Text(
                                     'Title: ${books[index]['title']}',
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold,
+                                      color: Colors.green.shade500
                                     ),
                                   ),
                                   SizedBox(height: 4),
                                   Text(
-                                    'Price: ${ books[index]['price']}',
+                                    'Price: ${ books[index]['price']} \$',
                                     style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
