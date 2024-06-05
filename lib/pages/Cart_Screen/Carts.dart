@@ -9,7 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Carts extends StatefulWidget {
   final String accessToken;
   const Carts({
-    required this.accessToken, Key? key,}) : super(key: key);
+    required this.accessToken, Key? key,
+  }) : super(key: key);
 
   @override
   State<Carts> createState() => _CartsState();
@@ -29,7 +30,6 @@ class _CartsState extends State<Carts> {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final accessToken = prefs.getString('access_token') ?? widget.accessToken;
-
 
       // Make API call to fetch cart items
       final response = await http.get(
@@ -148,7 +148,6 @@ class _CartsState extends State<Carts> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     double total = 0; // Initialize total
@@ -204,7 +203,8 @@ class _CartsState extends State<Carts> {
             ],
           ),
         ),
-      ) :Column(
+      )
+          : Column(
         children: [
           Expanded(
             child: ListView.builder(
@@ -326,23 +326,30 @@ class _CartsState extends State<Carts> {
             ],
           ),
         ),
-      ) : BottomAppBar(
+      )
+          : BottomAppBar(
         child: Container(
           child: Center(
             child: SizedBox(
               width: double.infinity,
               child: TextButton(
                 style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStateProperty.all(Colors.green),
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Payment(accessToken: 'access_token',),
-                    ),
-                  );
+                  if (cartItems.isNotEmpty) {
+                    final bookId = cartItems.first['book']['id'];
+                    final price = cartItems.first['book']['price'];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Payment(
+                          accessToken: widget.accessToken,
+                          bookId: bookId, price: price,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -362,10 +369,3 @@ class _CartsState extends State<Carts> {
     );
   }
 }
-
-
-
-
-
-
-
