@@ -79,6 +79,25 @@ class _AuthorDataState extends State<AuthorData> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green.shade300, Colors.green.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
+        elevation: 10.0,
+        shadowColor: Colors.green.withOpacity(0.8),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(10)
+            )
+        ),
         title: const Text(
           "Author's List",
           style: TextStyle(
@@ -89,7 +108,7 @@ class _AuthorDataState extends State<AuthorData> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.lightBlue.shade100,
+          color: Colors.grey.shade300,
           child: Center(
             child: Container(
               margin: EdgeInsets.only(top: 20),
