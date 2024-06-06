@@ -143,6 +143,25 @@ class _MyFavoriteState extends State<MyFavorite> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade200,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green.shade300, Colors.green.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
+        elevation: 10.0,
+        shadowColor: Colors.green.withOpacity(0.8),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(10)
+            )
+        ),
         automaticallyImplyLeading: false,
         leading: Center(
           child: Image.asset(

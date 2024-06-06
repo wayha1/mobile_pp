@@ -14,9 +14,28 @@ class Information extends StatelessWidget {
       appBar: AppBar(
         title: Text('$categoryName'),
         backgroundColor: Colors.green.shade300,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green.shade300, Colors.green.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
+        elevation: 10.0,
+        shadowColor: Colors.green.withOpacity(0.8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10)
+          )
+        ),
       ),
       body: Container(
-        color: Colors.blue.shade50,
+        color: Colors.grey.shade100,
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

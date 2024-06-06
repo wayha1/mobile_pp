@@ -161,6 +161,25 @@ class _CartsState extends State<Carts> {
 
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green.shade300, Colors.green.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
+        elevation: 10.0,
+        shadowColor: Colors.green.withOpacity(0.8),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(10)
+            )
+        ),
         backgroundColor: Colors.green.shade300,
         leading: Center(
           child: Image.asset(

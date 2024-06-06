@@ -41,9 +41,9 @@ class _MyButtomNavBarState extends State<MyButtomNavBar> {
           color: Colors.green.shade100,
           boxShadow: [
             BoxShadow(
-              color: Colors.lightGreen.withOpacity(0.5),
-              blurRadius: 10,
-              offset: const Offset(8, 9),
+              color: Colors.lightGreen.withOpacity(0.6),
+              blurRadius: 20,
+              offset: const Offset(20, 10),
             ),
           ],
         ),

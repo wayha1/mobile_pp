@@ -109,6 +109,25 @@ class _AccountState extends State<Account> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green.shade300, Colors.green.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
+        elevation: 10.0,
+        shadowColor: Colors.green.withOpacity(0.8),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(10)
+            )
+        ),
         leading: Center(
           child: Image.asset(
             'lib/image/logo.png',
@@ -151,49 +170,52 @@ class _AccountState extends State<Account> {
                   bottomRight: Radius.circular(18),
                 ),
               ),
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 260,
-                  enableInfiniteScroll: true,
-                  autoPlay: true,
-                  onPageChanged: (index, reason) {},
-                ),
-                items: informationProvider1.map((item) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: 370,
-                              height: 200,
-                              child: Image.network(
-                                item['book_image'] ?? '',
-                                fit: BoxFit.cover,
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 310,
+                    enableInfiniteScroll: true,
+                    autoPlay: true,
+                    onPageChanged: (index, reason) {},
+                  ),
+                  items: informationProvider1.map((item) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: 370,
+                                height: 250,
+                                child: Image.network(
+                                  item['book_image'] ?? '',
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    item['title'] ?? '',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).primaryColor,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      item['title'] ?? '',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
               ),
             ),
 
